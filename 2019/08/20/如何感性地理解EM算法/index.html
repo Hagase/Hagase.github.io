@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">如何感性地理解EM算法？ | Shiroha</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Shirohaの小矛屋";
+  mashiro_option.author_name = "小矛屋";
+  mashiro_option.site_url = "www.shiroha.cn";
+  mashiro_option.v_appId = "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz";
+  mashiro_option.v_appKey = "CVFjJULlnSe9RxKSEngIk5aR";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/3.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/6.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/7.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="www.shiroha.cn">
+          <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>这里是Shirohaの小矛屋，B站UP主矛盾钢琴师。</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/hagase" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/5641766727/profile" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=82156482" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/mao-dun-gang-qin-shi-58/activities" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://weibo.com/mashirozx?is_all=1" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Shirohaの</span>
+            <span class="shironeko">小矛屋</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/悦读/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/图集/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png);" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      如何感性地理解EM算法？</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.shiroha.cn">
+            <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.shiroha.cn">Shiroha</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-20<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p>如何感性地理解EM算法？<br><a id="more"></a></p>
+<p><div class="show-content-free"><br>            <blockquote></blockquote></div></p>
+<p>如果使用基于最大似然估计的模型，模型中存在隐变量，就要用EM算法做参数估计。个人认为，理解EM算法背后的idea，远比看懂它的数学推导重要。idea会让你有一个直观的感受，从而明白算法的合理性，数学推导只是将这种合理性用更加严谨的语言表达出来而已。打个比方，一个梨很甜，用数学的语言可以表述为糖分含量90%，但只有亲自咬一口，你才能真正感觉到这个梨有多甜，也才能真正理解数学上的90%的糖分究竟是怎么样的。如果EM是个梨，本文的目的就是带领大家咬一口。</p><br><br><h1>001、一个非常简单的例子</h1><br><p>假设现在有两枚硬币1和2，,随机抛掷后正面朝上概率分别为P1，P2。为了估计这两个概率，做实验，每次取一枚硬币，连掷5下，记录下结果，如下：</p><br><table><br><thead><br><tr><br><th style="text-align:center">硬币</th><br><th style="text-align:center">结果</th><br><th style="text-align:center">统计</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">正正反正反</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">反反正正反</td><br><td style="text-align:center">2正-3反</td><br></tr><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">正反反反反</td><br><td style="text-align:center">1正-4反</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">正反反正正</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">反正正反反</td><br><td style="text-align:center">2正-3反</td><br></tr><br></tbody><br></table><br><p>可以很容易地估计出P1和P2，如下：</p><br><p>P1 = （3+1+2）/ 15 = 0.4<br><br>P2=  （2+3）/10 = 0.5</p><br><p>到这里，一切似乎很美好，下面我们加大难度。</p><br><h1>010、加入隐变量z</h1><br><p>还是上面的问题，现在我们抹去每轮投掷时使用的硬币标记，如下：</p><br><table><br><thead><br><tr><br><th style="text-align:center">硬币</th><br><th style="text-align:center">结果</th><br><th style="text-align:center">统计</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正正反正反</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">反反正正反</td><br><td style="text-align:center">2正-3反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正反反反反</td><br><td style="text-align:center">1正-4反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正反反正正</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">反正正反反</td><br><td style="text-align:center">2正-3反</td><br></tr><br></tbody><br></table><br><p>好了，现在我们的目标没变，还是估计P1和P2，要怎么做呢？</p><br><p>显然，此时我们多了一个隐变量z，可以把它认为是一个5维的向量（z1,z2,z3,z4,z5)，代表每次投掷时所使用的硬币，比如z1，就代表第一轮投掷时使用的硬币是1还是2。但是，这个变量z不知道，就无法去估计P1和P2，所以，我们必须先估计出z，然后才能进一步估计P1和P2。</p><br><p>但要估计z，我们又得知道P1和P2，这样我们才能用最大似然概率法则去估计z，这不是鸡生蛋和蛋生鸡的问题吗，如何破？</p><br><p>答案就是先随机初始化一个P1和P2，用它来估计z，然后基于z，还是按照最大似然概率法则去估计新的P1和P2，如果新的P1和P2和我们初始化的P1和P2一样，请问这说明了什么？（此处思考1分钟）</p><br><p>这说明我们初始化的P1和P2是一个相当靠谱的估计！</p><br><p>就是说，我们初始化的P1和P2，按照最大似然概率就可以估计出z，然后基于z，按照最大似然概率可以反过来估计出P1和P2，当与我们初始化的P1和P2一样时，说明是P1和P2很有可能就是真实的值。这里面包含了两个交互的最大似然估计。</p><br><p>如果新估计出来的P1和P2和我们初始化的值差别很大，怎么办呢？就是继续用新的P1和P2迭代，直至收敛。</p><br><p>这就是下面的EM初级版。</p><br><h1>011、EM初级版</h1><br><p>我们不妨这样，先随便给P1和P2赋一个值，比如：<br><br>P1 = 0.2<br><br>P2 = 0.7</p><br><p>然后，我们看看第一轮抛掷最可能是哪个硬币。<br><br>如果是硬币1，得出3正2反的概率为 0.2<em>0.2</em>0.2<em>0.8</em>0.8 = 0.00512<br><br>如果是硬币2，得出3正2反的概率为0.7<em>0.7</em>0.7<em>0.3</em>0.3=0.03087<br><br>然后依次求出其他4轮中的相应概率。做成表格如下：</p><br><table><br><thead><br><tr><br><th style="text-align:center">轮数</th><br><th style="text-align:center">若是硬币1</th><br><th style="text-align:center">若是硬币2</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">0.00512</td><br><td style="text-align:center">0.03087</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">0.02048</td><br><td style="text-align:center">0.01323</td><br></tr><br><tr><br><td style="text-align:center">3</td><br><td style="text-align:center">0.08192</td><br><td style="text-align:center">0.00567</td><br></tr><br><tr><br><td style="text-align:center">4</td><br><td style="text-align:center">0.00512</td><br><td style="text-align:center">0.03087</td><br></tr><br><tr><br><td style="text-align:center">5</td><br><td style="text-align:center">0.02048</td><br><td style="text-align:center">0.01323</td><br></tr><br></tbody><br></table><br><p>按照最大似然法则：<br><br>第1轮中最有可能的是<strong>硬币2</strong><br><br>第2轮中最有可能的是<strong>硬币1</strong><br><br>第3轮中最有可能的是<strong>硬币1</strong><br><br>第4轮中最有可能的是<strong>硬币2</strong><br><br>第5轮中最有可能的是<strong>硬币1</strong></p><br><p>我们就把上面的值作为z的估计值。然后按照最大似然概率法则来估计新的P1和P2。</p><br><p>P1 = （2+1+2）/15 = 0.33<br><br>P2=（3+3）/10 = 0.6</p><br><p>设想我们是全知的神，知道每轮抛掷时的硬币就是如本文第001部分标示的那样，那么，P1和P2的最大似然估计就是0.4和0.5（下文中将这两个值称为P1和P2的真实值）。那么对比下我们初始化的P1和P2和新估计出的P1和P2：</p><br><table><br><thead><br><tr><br><th style="text-align:center">初始化的P1</th><br><th style="text-align:center">估计出的P1</th><br><th style="text-align:center">真实的P1</th><br><th style="text-align:center">初始化的P2</th><br><th style="text-align:center">估计出的P2</th><br><th style="text-align:center">真实的P2</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">0.2</td><br><td style="text-align:center">0.33</td><br><td style="text-align:center">0.4</td><br><td style="text-align:center">0.7</td><br><td style="text-align:center">0.6</td><br><td style="text-align:center">0.5</td><br></tr><br></tbody><br></table><br><p>看到没？我们估计的P1和P2相比于它们的初始值，更接近它们的真实值了！</p><br><p>可以期待，我们继续按照上面的思路，用估计出的P1和P2再来估计z，再用z来估计新的P1和P2，反复迭代下去，就可以最终得到P1 = 0.4，P2=0.5，此时无论怎样迭代，P1和P2的值都会保持0.4和0.5不变，于是乎，我们就找到了P1和P2的最大似然估计。</p><br><p>这里有两个问题：<br><br>1、新估计出的P1和P2一定会更接近真实的P1和P2？<br><br>答案是：没错，一定会更接近真实的P1和P2，数学可以证明，但这超出了本文的主题，请参阅其他书籍或文章。<br><br>2、迭代一定会收敛到真实的P1和P2吗？<br><br>答案是：不一定，取决于P1和P2的初始化值，上面我们之所以能收敛到P1和P2，是因为我们幸运地找到了好的初始化值。</p><br><h1>100、EM进阶版</h1><br><p>下面，我们思考下，上面的方法还有没有改进的余地？</p><br><p>我们是用最大似然概率法则估计出的z值，然后再用z值按照最大似然概率法则估计新的P1和P2。也就是说，我们使用了一个最可能的z值，而不是所有可能的z值。</p><br><p>如果考虑所有可能的z值，对每一个z值都估计出一个新的P1和P2，将每一个z值概率大小作为权重，将所有新的P1和P2分别加权相加，这样的P1和P2应该会更好一些。</p><br><p>所有的z值有多少个呢？显然，有2^5=32种，需要我们进行32次估值？？</p><br><p>不需要，我们可以用期望来简化运算。</p><br><table><br><thead><br><tr><br><th style="text-align:center">轮数</th><br><th style="text-align:center">若是硬币1</th><br><th style="text-align:center">若是硬币2</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">0.00512</td><br><td style="text-align:center">0.03087</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">0.02048</td><br><td style="text-align:center">0.01323</td><br></tr><br><tr><br><td style="text-align:center">3</td><br><td style="text-align:center">0.08192</td><br><td style="text-align:center">0.00567</td><br></tr><br><tr><br><td style="text-align:center">4</td><br><td style="text-align:center">0.00512</td><br><td style="text-align:center">0.03087</td><br></tr><br><tr><br><td style="text-align:center">5</td><br><td style="text-align:center">0.02048</td><br><td style="text-align:center">0.01323</td><br></tr><br></tbody><br></table><br><p>利用上面这个表，我们可以算出每轮抛掷中使用硬币1或者使用硬币2的概率。比如第1轮，使用硬币1的概率是：<br><br>0.00512/(0.00512+0.03087)=0.14<br><br>使用硬币2的概率是1-0.14=0.86<br><br>依次可以算出其他4轮的概率，如下：</p><br><table><br><thead><br><tr><br><th style="text-align:center">轮数</th><br><th style="text-align:center">z_i=硬币1</th><br><th style="text-align:center">z_i=硬币2</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">0.14</td><br><td style="text-align:center">0.86</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">0.61</td><br><td style="text-align:center">0.39</td><br></tr><br><tr><br><td style="text-align:center">3</td><br><td style="text-align:center">0.94</td><br><td style="text-align:center">0.06</td><br></tr><br><tr><br><td style="text-align:center">4</td><br><td style="text-align:center">0.14</td><br><td style="text-align:center">0.86</td><br></tr><br><tr><br><td style="text-align:center">5</td><br><td style="text-align:center">0.61</td><br><td style="text-align:center">0.39</td><br></tr><br></tbody><br></table><br><p>上表中的右两列表示期望值。看第一行，0.86表示，从期望的角度看，这轮抛掷使用硬币2的概率是0.86。相比于前面的方法，我们按照最大似然概率，直接将第1轮估计为用的硬币2，此时的我们更加谨慎，我们只说，有0.14的概率是硬币1，有0.86的概率是硬币2，不再是非此即彼。这样我们在估计P1或者P2时，就可以用上全部的数据，而不是部分的数据，显然这样会更好一些。</p><br><p>这一步，我们实际上是估计出了z的概率分布，这步被称作E步。</p><br><p>结合下表：</p><br><table><br><thead><br><tr><br><th style="text-align:center">硬币</th><br><th style="text-align:center">结果</th><br><th style="text-align:center">统计</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正正反正反</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">反反正正反</td><br><td style="text-align:center">2正-3反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正反反反反</td><br><td style="text-align:center">1正-4反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">正反反正正</td><br><td style="text-align:center">3正-2反</td><br></tr><br><tr><br><td style="text-align:center">Unknown</td><br><td style="text-align:center">反正正反反</td><br><td style="text-align:center">2正-3反</td><br></tr><br></tbody><br></table><br><p>我们按照期望最大似然概率的法则来估计新的P1和P2：</p><br><p>以P1估计为例，第1轮的3正2反相当于<br><br>0.14<em>3=0.42正<br><br>0.14</em>2=0.28反<br><br>依次算出其他四轮，列表如下：</p><br><table><br><thead><br><tr><br><th style="text-align:center">轮数</th><br><th style="text-align:center">正面</th><br><th style="text-align:center">反面</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:center">1</td><br><td style="text-align:center">0.42</td><br><td style="text-align:center">0.28</td><br></tr><br><tr><br><td style="text-align:center">2</td><br><td style="text-align:center">1.22</td><br><td style="text-align:center">1.83</td><br></tr><br><tr><br><td style="text-align:center">3</td><br><td style="text-align:center">0.94</td><br><td style="text-align:center">3.76</td><br></tr><br><tr><br><td style="text-align:center">4</td><br><td style="text-align:center">0.42</td><br><td style="text-align:center">0.28</td><br></tr><br><tr><br><td style="text-align:center">5</td><br><td style="text-align:center">1.22</td><br><td style="text-align:center">1.83</td><br></tr><br><tr><br><td style="text-align:center">总计</td><br><td style="text-align:center">4.22</td><br><td style="text-align:center">7.98</td><br></tr><br></tbody><br></table><br><p>P1=4.22/(4.22+7.98)=0.35</p><br><p>可以看到，改变了z值的估计方法后，新估计出的P1要更加接近0.4。原因就是我们使用了所有抛掷的数据，而不是之前只使用了部分的数据。</p><br><p>这步中，我们根据E步中求出的z的概率分布，依据最大似然概率法则去估计P1和P2，被称作M步。</p><br><h1>101、总结</h1><br><p>以上，我们用一个实际的小例子，来实际演示了EM算法背后的idea，共性存于个性之中，通过这个例子，我们可以对EM算法究竟在干什么有一个深刻感性的认识，掌握EM算法的思想精髓。</p><br><p>Reference:<br><br><a href="https://link.jianshu.com?t=http://pan.baidu.com/s/1i4NfvP7" target="_blank" rel="nofollow">http://pan.baidu.com/s/1i4NfvP7</a></p>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/23/莫烦-强化学习-Q-Learning和Sarsa/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                莫烦-强化学习-Q-Learning和Sarsa</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/20/linux常用命令(长期更新)/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                Linux的常用命令</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz",
+        appKey: "CVFjJULlnSe9RxKSEngIk5aR",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="www.shiroha.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg" itemprop="image" alt="Shiroha" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="www.shiroha.cn" itemprop="url" rel="author">Shiroha</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Shiroha</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Shiroha<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Shirohaの小矛屋</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/hagase" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/5641766727/profile" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/悦读/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/图集/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer"
+
+    data-id="311465842"
+
+    data-server="netease"
+
+    data-type="playlist"
+
+    data-fixed="true"
+
+    data-autoplay="false"
+
+    data-loop="all"
+
+    data-order="random"
+
+    data-preload="auto"
+
+    data-volume="0.7"
+
+    data-mutex="true"
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

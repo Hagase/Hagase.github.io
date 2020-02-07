@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">莫烦-强化学习-DDPO | Shiroha</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Shirohaの小矛屋";
+  mashiro_option.author_name = "小矛屋";
+  mashiro_option.site_url = "www.shiroha.cn";
+  mashiro_option.v_appId = "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz";
+  mashiro_option.v_appKey = "CVFjJULlnSe9RxKSEngIk5aR";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/3.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/6.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/7.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="www.shiroha.cn">
+          <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>这里是Shirohaの小矛屋，B站UP主矛盾钢琴师。</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/hagase" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/5641766727/profile" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=82156482" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/mao-dun-gang-qin-shi-58/activities" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://weibo.com/mashirozx?is_all=1" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Shirohaの</span>
+            <span class="shironeko">小矛屋</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/悦读/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/图集/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png);" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      莫烦-强化学习-DDPO</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.shiroha.cn">
+            <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.shiroha.cn">Shiroha</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-8-24<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p>本文转载自<a href="https://morvanzhou.github.io/tutorials/machine-learning/reinforcement-learning/6-4-DPPO/" target="_blank" rel="noopener">莫烦-强化学习-DPPO</a><br>OpenAI:<br>PPO 论文 <a href="https://arxiv.org/abs/1707.06347" target="_blank" rel="noopener">Proximal Policy Optimization</a><br>Google DeepMind :<br>DPPO 论文 <a href="https://arxiv.org/abs/1707.02286" target="_blank" rel="noopener">Emergence of Locomotion Behaviours in Rich Environments</a></p>
+<h4 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h4><p>根据 OpenAI 的<a href="https://blog.openai.com/openai-baselines-ppo/" target="_blank" rel="noopener">官方博客</a>, PPO 已经成为他们在强化学习上的默认算法. 如果一句话概括 PPO: OpenAI 提出的一种解决 <strong>Policy Gradient</strong> 不好确定 <strong>Learning rate</strong> (或者 <strong>Step size</strong>) 的问题. 因为如果 <strong>step size 过大</strong>, 学出来的 Policy 会一直乱动, <strong>不会收敛</strong>, 但如果 <strong>Step Size</strong> 太小, 对于完成训练, 我们会等到绝望. <strong>PPO</strong> 利用 <strong>New Policy</strong> 和 <strong>Old Policy</strong> 的<strong>比例</strong>, 限制了 <strong>New Policy</strong> 的<strong>更新幅度</strong>, 让 <strong>Policy Gradient</strong> 对稍微大点的 <strong>Step size</strong> 不那么敏感.</p>
+<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><strong>PPO</strong> 的前生是 OpenAI 发表的 <a href="https://arxiv.org/abs/1502.05477" target="_blank" rel="noopener">Trust Region Policy Optimization</a>, 但是 Google DeepMind 看过 OpenAI 关于 Trust Region Policy Optimization 的 conference 后, 却抢在 OpenAI 前面 (2017年7月7号) 把 <a href="https://arxiv.org/abs/1707.02286" target="_blank" rel="noopener">Distributed PPO</a>给先发布了. 我觉得 DeepMind 有点抢, 这让 OpenAI 有点难堪. 不过 OpenAI 还是在 2017年7月20号 发表了一份拿得出手的 PPO 论文 (估计是突然看到了 Google 抢了自己的东西, 所以赶紧把自己的也发了).</p>
+<p>OpenAI <strong>PPO</strong> 论文里给出的算法… 写得也太简单了 (注意他们这个 <strong>PPO</strong> 算法应该算是单线程的):<br><img src="https://img-blog.csdnimg.cn/20190824215347342.png" alt="在这里插入图片描述"><br>看了上面的主结构, 觉得少了很多东西. 这让我直接跑去 DeepMind 的 Paper 看他们总结 OpenAI conference 上的 <strong>PPO</strong> 的代码:<br><img src="https://img-blog.csdnimg.cn/20190824215413905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>总的来说 <strong>PPO</strong> 是一套 <strong>Actor-Critic</strong> 结构, <strong>Actor</strong> 想最大化 <strong>J_PPO</strong>, <strong>Critic</strong> 想最小化 <strong>L_BL</strong>. <strong>Critic</strong> 的 loss 好说, 就是减小 <strong>TD error</strong>. 而 <strong>Actor</strong> 的就是在 <strong>old Policy</strong> 上根据 <strong>Advantage (TD error)</strong> 修改 <strong>new Policy</strong>, <strong>advantage</strong> 大的时候, 修改幅度大, 让 <strong>new Policy</strong> 更可能发生. 而且他们附加了一个 <strong>KL Penalty</strong> (惩罚项, 不懂的同学搜一下 <strong>KL divergence</strong>), 简单来说, 如果 <strong>new Policy</strong> 和 <strong>old Policy</strong> 差太多, 那 <strong>KL divergence</strong> 也越大, 我们不希望 <strong>new Policy</strong> 比 <strong>old Policy</strong> 差太多, 如果会差太多, 就相当于用了一个大的 <strong>Learning rate</strong>, 这样是不好的, 难收敛.</p>
+<p>关于 DeepMind 在这篇 paper 中提出的 <strong>DPPO</strong> 算法, 和怎么样把 OpenAI 的 <strong>PPO</strong> 多线程. 我们之后在下面细说, 我们先把简单的 <strong>PPO</strong> 算法给实现.</p>
+<h4 id="简单-PPO-的主结构"><a href="#简单-PPO-的主结构" class="headerlink" title="简单 PPO 的主结构"></a>简单 PPO 的主结构</h4><p>我们用 Tensorflow 搭建神经网络, tensorboard 中可以看清晰的看到我们是如果搭建的:<br><img src="https://img-blog.csdnimg.cn/20190824215648135.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>图中的 <strong>pi</strong> 就是我们的 <strong>Actor</strong> 了. 每次要进行 <strong>PPO</strong> 更新 <strong>Actor</strong> 和 <strong>Critic</strong> 的时候, 我们有需要将 <strong>pi</strong> 的参数复制给 <strong>oldpi</strong>. 这就是 <strong>update_oldpi</strong> 这个 <strong>operation</strong> 在做的事. <strong>Critic</strong> 和 <strong>Actor</strong> 的内部结构, 我们不会打开细说了. 因为就是一堆的神经网络而已. 这里的 <strong>Actor</strong> 使用了 <strong>normal distribution</strong> 正态分布输出动作.</p>
+<p>这个 <strong>PPO</strong> 我们可以用一个 <strong>Python</strong> 的 class 代替：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class PPO(object):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        # 建 Actor Critic 网络</span><br><span class="line">        # 搭计算图纸 graph</span><br><span class="line">    def update(self, s, a, r):</span><br><span class="line">        # 更新 PPO</span><br><span class="line">    def choose_action(self, s):</span><br><span class="line">        # 选动作</span><br><span class="line">    def get_v(self, s):</span><br><span class="line">        # 算 state value</span><br></pre></td></tr></table></figure>
+<p>而这个 <strong>PPO</strong> 和 <strong>env</strong> 环境的互动可以简化成这样.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ppo = PPO()</span><br><span class="line">for ep in range(EP_MAX):</span><br><span class="line">    s = env.reset()</span><br><span class="line">    buffer_s, buffer_a, buffer_r = [], [], []</span><br><span class="line">    for t in range(EP_LEN):</span><br><span class="line">        env.render()</span><br><span class="line">        a = ppo.choose_action(s)</span><br><span class="line">        s_, r, done, _ = env.step(a)</span><br><span class="line">        buffer_s.append(s)</span><br><span class="line">        buffer_a.append(a)</span><br><span class="line">        buffer_r.append((r+8)/8)    # normalize reward, 发现有帮助</span><br><span class="line">        s = s_</span><br><span class="line"></span><br><span class="line">        # 如果 buffer 收集一个 batch 了或者 episode 完了</span><br><span class="line">        if (t+1) % BATCH == 0 or t == EP_LEN-1:</span><br><span class="line">            # 计算 discounted reward</span><br><span class="line">            v_s_ = ppo.get_v(s_)</span><br><span class="line">            discounted_r = []</span><br><span class="line">            for r in buffer_r[::-1]:</span><br><span class="line">                v_s_ = r + GAMMA * v_s_</span><br><span class="line">                discounted_r.append(v_s_)</span><br><span class="line">            discounted_r.reverse()</span><br><span class="line"></span><br><span class="line">            bs, ba, br = batch(buffer_s, buffer_a, discounted_r)</span><br><span class="line">            # 清空 buffer</span><br><span class="line">            buffer_s, buffer_a, buffer_r = [], [], []</span><br><span class="line">            ppo.update(bs, ba, br)  # 更新 PPO</span><br></pre></td></tr></table></figure>
+<p>了解了这些更新步骤, 我们就来看看如何更新我们的 <strong>PPO</strong>. 我们更新 <strong>Critic</strong> 的时候是根据 刚刚计算的 <strong>discounted_r</strong> 和自己分析出来的 <strong>state value</strong> 这两者的差 <strong>(advantage)</strong>. 然后最小化这个差值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class PPO:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.advantage = self.tfdc_r - self.v   # discounted reward - Critic 出来的 state value</span><br><span class="line">        self.closs = tf.reduce_mean(tf.square(self.advantage))</span><br><span class="line">        self.ctrain_op = tf.train.AdamOptimizer(C_LR).minimize(self.closs)</span><br></pre></td></tr></table></figure>
+<p>在更新 <strong>Actor</strong> 的时候, 其实有两种方式, 一种是用之前提到的 <strong>KL penalty</strong> 来更新.<br><img src="https://img-blog.csdnimg.cn/20190824220114388.png" alt="在这里插入图片描述"><br>我在代码中也写上的这种方式的计算图纸要怎么搭, 不过还有一种是 OpenAI 在 <strong>PPO</strong> 这篇 <a href="https://arxiv.org/abs/1707.06347" target="_blank" rel="noopener">paper</a> 中提到的 <strong>clipped surrogate objective</strong>, <strong>surrogate objective</strong> 就是这个 <strong>surrogate</strong>. 他们实验中得出的结论说: <strong>clipped surrogate objective</strong> 要比 <strong>KL penalty</strong> 形式好. 那 <strong>clipped surrogate objective</strong> 到底是什么呢? 其实就是限制了 <strong>surrogate</strong> 的变化幅度, 和 <strong>KL</strong> 的规则差不多.<br><img src="https://img-blog.csdnimg.cn/2019082422021888.png" alt="在这里插入图片描述"><br>这里的 <strong>r(theta)</strong> 是 <strong>(New Policy/Old Policy)</strong> 的比例, 和前面的公式一样. </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class PPO:</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.tfa = tf.placeholder(tf.float32, [None, A_DIM], &apos;action&apos;)</span><br><span class="line">        self.tfadv = tf.placeholder(tf.float32, [None, 1], &apos;advantage&apos;)</span><br><span class="line">        with tf.variable_scope(&apos;loss&apos;):</span><br><span class="line">            with tf.variable_scope(&apos;surrogate&apos;):</span><br><span class="line">                ratio = pi.prob(self.tfa) / oldpi.prob(self.tfa)</span><br><span class="line">                surr = ratio * self.tfadv   # surrogate objective</span><br><span class="line">            if METHOD[&apos;name&apos;] == &apos;kl_pen&apos;:      # 如果用 KL penatily</span><br><span class="line">                self.tflam = tf.placeholder(tf.float32, None, &apos;lambda&apos;)</span><br><span class="line">                kl = kl_divergence(oldpi, pi)</span><br><span class="line">                self.kl_mean = tf.reduce_mean(kl)</span><br><span class="line">                self.aloss = -(tf.reduce_mean(surr - self.tflam * kl))</span><br><span class="line">            else:                               # 如果用 clipping 的方式</span><br><span class="line">                self.aloss = -tf.reduce_mean(tf.minimum(</span><br><span class="line">                    surr,</span><br><span class="line">                    tf.clip_by_value(ratio, 1.-METHOD[&apos;epsilon&apos;], 1.+METHOD[&apos;epsilon&apos;])*self.tfadv))</span><br><span class="line"></span><br><span class="line">        with tf.variable_scope(&apos;atrain&apos;):</span><br><span class="line">            self.atrain_op = tf.train.AdamOptimizer(A_LR).minimize(self.aloss)</span><br></pre></td></tr></table></figure>
+<p>好了, 接下来就是最重要的更新 <strong>PPO</strong> 时间了.<br>注意的是, 这个 <strong>update</strong> 的步骤里, 我们用 <strong>for loop</strong> 更新了很多遍 <strong>Actor</strong> 和 <strong>Critic</strong>, 在 <strong>loop</strong> 之前, <strong>pi</strong> 和 <strong>old pi</strong> 是一样的, 每次 <strong>loop</strong> 的之后, <strong>pi</strong> 会变动, 而 <strong>old pi</strong> 不变, 这样这个 surrogate <img src="https://img-blog.csdnimg.cn/20190824220406514.png" alt="surrogate"> 就会开始变动了. 这就是 <strong>PPO</strong> 的精辟.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class PPO:</span><br><span class="line">    def update(self, s, a, r):</span><br><span class="line">        # 先要将 oldpi 里的参数更新 pi 中的</span><br><span class="line">        self.sess.run(self.update_oldpi_op)</span><br><span class="line"></span><br><span class="line">        # 更新 Actor 时, kl penalty 和 clipping 方式是不同的</span><br><span class="line">        if METHOD[&apos;name&apos;] == &apos;kl_pen&apos;:  # 如果用 KL penalty</span><br><span class="line">            for _ in range(A_UPDATE_STEPS):</span><br><span class="line">                _, kl = self.sess.run(</span><br><span class="line">                        [self.atrain_op, self.kl_mean],</span><br><span class="line">                        &#123;self.tfs: s, self.tfa: a, self.tfadv: adv, self.tflam: METHOD[&apos;lam&apos;]&#125;)</span><br><span class="line">                # 之后根据 kl 的值, 调整 METHOD[&apos;lam&apos;] 这个参数</span><br><span class="line">        else:   # 如果用 clipping 的方法</span><br><span class="line">            [self.sess.run(self.atrain_op, &#123;self.tfs: s, self.tfa: a, self.tfadv: adv&#125;) for _ in range(A_UPDATE_STEPS)]</span><br><span class="line"></span><br><span class="line">        # 更新 Critic 的时候, 他们是一样的</span><br><span class="line">        [self.sess.run(self.ctrain_op, &#123;self.tfs: s, self.tfdc_r: r&#125;) for _ in range(C_UPDATE_STEPS)]</span><br></pre></td></tr></table></figure>
+<p>最后我们看一张学习的效果图：<br><img src="https://img-blog.csdnimg.cn/20190824220455921.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来我们看看怎么样把这个单线程的 <strong>PPO</strong> 变到多线程去 (<strong>Distributed PPO</strong>).</p>
+<h4 id="Distributed-PPO"><a href="#Distributed-PPO" class="headerlink" title="Distributed PPO"></a>Distributed PPO</h4><p>Google DeepMind 提出来了一套和 <strong>A3C</strong>类似的并行 PPO 算法. 看了他们 paper 中的这个 <strong>DPPO</strong> 算法后, 我觉得….不好编! 取而代之, 我觉得如果采用 OpenAI 的思路, 用他那个 “简陋” 伪代码, 但是弄成并行计算倒是好弄点. 所以我就结合了 DeepMind 和 OpenAI, 取他们的精华, 写下了这份 <strong>DPPO</strong> 的代码.</p>
+<p>总结一下我是怎么写的.</p>
+<ul>
+<li>用 OpenAI 提出的 Clipped Surrogate Objective</li>
+<li>使用多个线程 (workers) 平行在不同的环境中收集数据</li>
+<li>workers 共享一个 Global PPO</li>
+<li>workers 不会自己算 PPO 的 gradients, 不会像 A3C 那样推送 Gradients 给 Global net</li>
+<li>workers 只推送自己采集的数据给 Global PPO</li>
+<li>Global PPO 拿到多个 workers 一定批量的数据后进行更新 (更新时 worker 停止采集)</li>
+<li>更新完后, workers 用最新的 Policy 采集数据</li>
+</ul>
+<p>不过有些细节我想提前提一下, 方便<del>你们</del> 看代码：</p>
+<ul>
+<li>我用到了 python threading 当中的 Event 功能, 用来控制 PPO 的更新时间和 worker 停止工作的时间</li>
+<li>使用了 threading 中的 Queue 来存放 worker 收集的数据, 发现用 python 的列表也可以达到一样效果, 计算时间上没太多差别.</li>
+<li>更新 PPO 的时候, 我采用的是 DeepMind 的 for loop 形式.</li>
+</ul>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/08/24/莫烦-强化学习-A3C/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                莫烦-强化学习-A3C</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/24/莫烦-强化学习-Actor Critic/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                莫烦-强化学习-Actor Critic</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz",
+        appKey: "CVFjJULlnSe9RxKSEngIk5aR",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="www.shiroha.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg" itemprop="image" alt="Shiroha" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="www.shiroha.cn" itemprop="url" rel="author">Shiroha</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Shiroha</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Shiroha<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Shirohaの小矛屋</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/hagase" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/5641766727/profile" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/悦读/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/图集/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer"
+
+    data-id="311465842"
+
+    data-server="netease"
+
+    data-type="playlist"
+
+    data-fixed="true"
+
+    data-autoplay="false"
+
+    data-loop="all"
+
+    data-order="random"
+
+    data-preload="auto"
+
+    data-volume="0.7"
+
+    data-mutex="true"
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

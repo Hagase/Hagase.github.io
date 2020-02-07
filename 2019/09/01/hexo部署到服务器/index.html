@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">hexo部署到服务器 | Shiroha</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Shirohaの小矛屋";
+  mashiro_option.author_name = "小矛屋";
+  mashiro_option.site_url = "www.shiroha.cn";
+  mashiro_option.v_appId = "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz";
+  mashiro_option.v_appKey = "CVFjJULlnSe9RxKSEngIk5aR";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/3.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/6.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/7.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="www.shiroha.cn">
+          <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>这里是Shirohaの小矛屋，B站UP主矛盾钢琴师。</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/hagase" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/5641766727/profile" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=82156482" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/mao-dun-gang-qin-shi-58/activities" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://weibo.com/mashirozx?is_all=1" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Shirohaの</span>
+            <span class="shironeko">小矛屋</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/悦读/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/图集/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png);" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      hexo部署到服务器</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.shiroha.cn">
+            <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.shiroha.cn">Shiroha</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-1<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <div id="content_views" class="markdown_views prism-github-gist"><br>                    <!-- flowchart 箭头图标 勿删 --><br>                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><br/>                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"/><br/>                    </svg><br><p>原来是部署到 <code>github</code> 和 <code>coding</code> 上的，访问速度较慢，并且图床 <code>七牛云</code> 自 2018年 7月起，测试域名的生命周期只有 30个自然日，这让维护博客造成了很大的麻烦，于是便准备使用服务器来进行部署了。</p><br><h1><a name="t0"></a><a id="_4"></a>部署环境</h1><br><ul><br><li>本地环境<br><ul><br><li>Windows10(64bit)</li><br><li>环境：<code>git</code>，<code>Node.js</code>，<code>hexo</code>…</li><br><li>生成本地静态网站</li><br></ul><br></li><br><li>服务器环境<br><ul><br><li>腾讯云主机(CentOS 7.5 64bit)</li><br><li>环境：<code>git</code>，<code>Nginx</code>，<code>创建 git 用户</code></li><br><li>使用 git 自动化部署发布</li><br></ul><br></li><br></ul><br><h1><a name="t1"></a><a id="_14"></a>服务器配置</h1><br><h2><a name="t2"></a><a id="1__Git__15"></a>1. 安装 Git (源码包安装)</h2><br><blockquote><br><p>因为 yum 源仓库的 Git 版本更新不及时，所以采用源码包进行安装。</p><br></blockquote><br><h3><a name="t3"></a><a id="11__18"></a>1.1 安装依赖包</h3><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel<br>yum install  gcc perl-ExtUtils-MakeMaker<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>通过命令 <code>git –version</code> 可以看到，Git 当前的版本号为 <code>1.8.3.1</code>，太过于陈旧，所以需要先把它移除了。</p><br><h3><a name="t4"></a><a id="12__Git_25"></a>1.2 卸载旧版本的 Git</h3><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">yum remove git<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><h3><a name="t5"></a><a id="13__30"></a>1.3 下载并解压</h3><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">cd /usr/local/src   // 选择文件保存位置<br>wget <a href="https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.19.0.tar.gz" target="_blank" rel="noopener">https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.19.0.tar.gz</a>   // 下载链接<br>tar -zxvf git-2.19.0.tar.gz   // 解压<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><p><code>git-2.19.0.tar.gz</code> 是目前最新版本，其他版本以及之后版本可<a href="https://mirrors.edge.kernel.org/pub/software/scm/git" rel="noopener" data-token="cca3acf233ece190b2a9dc3380c819c0" target="_blank">到此</a>进行查看。解压后，会在当前目录下自动生成一个名为 <code>git-2.19.0</code> 的文件夹，里面就是解压出来的文件。可通过命令 <code>ls</code> 进行查看。</p><br><h3><a name="t6"></a><a id="14__38"></a>1.4 编译安装</h3><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">cd git-2.19.0   // 进入文件夹<br>make prefix=/usr/local/git all  // 编译源码<br>make prefix=/usr/local/git install  // 安装至 /usr/local/git 路径<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><div class="note info"><p>编译时，由机器配置决定速度，请耐心等待。</p></div><br><p>打开环境变量配置文件。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">vim /etc/profile<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p>在文件底部添加以下配置。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">PATH=$PATH:/usr/local/git/bin   // git 的目录<br>export PATH<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><div class="note warning"><p>两个语句都要加上。</p></div><br><p>刷新环境变量。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">source /etc/profile<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p>最后再使用 <code>git –version</code> 查看版本号，已经为 <code>2.19.0</code>。</p><br><h2><a name="t7"></a><a id="2_git__66"></a>2. git 新用户及配置</h2><br><h3><a name="t8"></a><a id="21__git__67"></a>2.1 创建 git 用户</h3><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">adduser git<br>passwd git<br>chmod 740 /etc/sudoers<br>vim /etc/sudoers<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li></ul></pre><br><p>找到以下内容。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">## Allow root to run any commands anywhere<br>root    ALL=(ALL)       ALL<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>在它下面添加一行。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">git ALL=(ALL) ALL<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p>保存并退出，将权限修改回来。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">chmod 400 /etc/sudoers<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><h3><a name="t9"></a><a id="22__87"></a>2.2 密钥配置</h3><br><p>本地中，使用 <code>Git Bash</code> 创建密钥。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;"># 本地 windows gitBash<br>ssh-keygen -t rsa<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>一路回车，直至如下图，即可。<br><br><img src="https://img-blog.csdn.net/20180928113539796?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N0YXVuY2hLYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="sshkeys"></p><br><p>切换至 <code>git</code> 用户，创建 <code>.ssh</code> 文件夹以及 <code>authorized_keys</code> 文件并将本地的 <code>id_rsa.pub</code> 文件内容粘贴到里面。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">su git<br>mkdir ~/.ssh<br>vim ~/.ssh/authorized_keys<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><p>修改权限。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">cd ~<br>chmod 600 .ssh/authorzied_keys<br>chmod 700 .ssh<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><h3><a name="t10"></a><a id="23__109"></a>2.3 测试</h3><br><p>在本地 Windows 上，使用 <code>Git Bash</code> 测试是否能连接上服务器。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">ssh -v git@SERVER<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p>其中 SERVER 为服务器 ip 地址。若出现以下错误提示，检查本地密钥位置是否存在 <code>known_hosts</code> 文件，将其删除重新测试。测试结果为，不需要密码直接进入。<br><br><strong>错误提示：</strong><br><br><img src="https://img-blog.csdn.net/20180928113701445?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N0YXVuY2hLYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p><br><h3><a name="t11"></a><a id="24__118"></a>2.4 创建网站目录</h3><br><p>创建一个目录用于作为网站的根目录。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">su root<br>mkdir /home/hexo    # 此目录为网站的根目录<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>赋予权限。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">chown git:git -R /home/hexo<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><h2><a name="t12"></a><a id="3__Nginx_129"></a>3. 安装配置 Nginx</h2><br><blockquote><br><p>注意需要 root 权限</p><br></blockquote><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">yum install -y nginx    // 安装<br>systemctl start nginx.service     // 启动服务<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>使用 yum 安装的 nginx 在新版的 CentOS 中，需要使用 <code>systemctl</code>，而不是直接使用 <code>service start nginx</code><br><br>此时通过服务器的公网 IP 地址访问，可以看到 nginx 的欢迎页面，表示安装成功，如下图:</p><br><p><img src="https://img-blog.csdn.net/20180928113800884?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1N0YXVuY2hLYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="nginx"></p><br><h3><a name="t13"></a><a id="32__Nginx_140"></a>3.2 配置 Nginx</h3><br><p>使用 <code>nginx -t</code> 命令查看位置，一般为 <code>/etc/nginx/nginx.conf</code>。<br><br>使用 <code>vim /etc/nginx/nginx.conf</code> 命令进行编辑，修改配置文件如下：</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">server {<br>    listen       80 default_server;<br>    listen       [::]:80 default_server;<br>    server_name  staunchkai.com;    # 修改为自己的域名<br>    root         /home/hexo;    # 修改为网站的根目录<br><br>    # Load configuration files for the default server block.<br>    include /etc/nginx/default.d/*.conf;<br><br>    location / {<br>    }<br><br>    error_page 404 /404.html;<br>        location = /40x.html {<br>    }<br><br>    error_page 500 502 503 504 /50x.html;<br>        location = /50x.html {<br>    }<br>}<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li><li style="color: rgb(153, 153, 153);">7</li><li style="color: rgb(153, 153, 153);">8</li><li style="color: rgb(153, 153, 153);">9</li><li style="color: rgb(153, 153, 153);">10</li><li style="color: rgb(153, 153, 153);">11</li><li style="color: rgb(153, 153, 153);">12</li><li style="color: rgb(153, 153, 153);">13</li><li style="color: rgb(153, 153, 153);">14</li><li style="color: rgb(153, 153, 153);">15</li><li style="color: rgb(153, 153, 153);">16</li><li style="color: rgb(153, 153, 153);">17</li><li style="color: rgb(153, 153, 153);">18</li><li style="color: rgb(153, 153, 153);">19</li><li style="color: rgb(153, 153, 153);">20</li></ul></pre><br><p><code>root</code> 处的网站目录，需要自己创建，也就是部署上传的位置。</p><br><p>注意使用 <code>nginx -t</code> 命令检查配置文件的语法是否出错。然后使用 <code>systemctl restart nginx.service</code> 命令重启服务即可。</p><br><h2><a name="t14"></a><a id="4__169"></a>4. 自动化部署</h2><br><h3><a name="t15"></a><a id="41__git__170"></a>4.1 建立 git 裸库</h3><br><p>创建一个裸仓库，裸仓库就是只保存 <code>git</code> 信息的 <code>Repository</code>, 首先切换到 <code>git</code> 用户确保 git 用户拥有仓库所有权，一定要加 <code>–bare</code>，这样才是一个裸库。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">su root<br>cd /home/git   # 在 git 用户目录下创建<br>git init –bare blog.git<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><p>这时，<code>git</code> 用户的 <code>~</code> 目录下就存在一个 <code>blog.git</code> 文件夹，可使用 <code>ls</code> 命令查看。再修改 <code>blog.git</code> 的权限。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">chown git:git -R blog.git<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><h3><a name="t16"></a><a id="42__githooks__182"></a>4.2 使用 git-hooks 同步网站根目录</h3><br><p>在这使用的是 <code>post-receive</code> 这个钩子，当 <code>git</code> 有收发的时候就会调用这个钩子。 在 <code>blog.git</code> 裸库的 hooks 文件夹中，新建 <code>post-receive</code> 文件。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">vim blog.git/hooks/post-receive<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p>填入以下内容，其中 <code>/home/hexo</code> 为网站目录，根据自己的填入,保存退出。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">#!/bin/sh<br>git –work-tree=/home/hexo –git-dir=/home/git/blog.git checkout -f<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p>保存后，要赋予这个文件可执行权限。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">chmod +x /home/git/blog.git/hooks/post-receive<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><h1><a name="t17"></a><a id="_197"></a>本地配置</h1><br><p>在本地中，和部署到 <code>pages</code> 服务一样，需要先 <code>hexo g</code> 命令生成静态文件，通过 <code>hexo s</code> 命令能够正常进行本地访问，并且确保已经安装了 <code>hexo-deployer-git</code>。</p><br><h2><a name="t18"></a><a id="__configyml_200"></a>配置 <code>_config.yml</code></h2><br><p>hexo 根目录下的 <code>_config.yml</code> 文件，找到 <code>deploy</code>。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">deploy:<br>    type: git<br>    repo: git@SERVER:/home/git/blog.git     # repository url<br>    branch: master      # 分支<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li></ul></pre><br><p>之后按照正常的流程进行部署即可。</p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">hexo clean<br>hexo g<br>hexo d<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><h1><a name="t19"></a><a id="_214"></a>常见错误</h1><br><p><strong>git-receive-pack: 未找到命令</strong></p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">hexo d<br>bash: git-receive-pack: command not found<br>fatal: Could not read from remote repository.<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><p><strong>解决办法：</strong></p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">sudo ln -s /usr/local/git/bin/git-receive-pack  /usr/bin/git-receive-pack<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p><strong>git-upload-pack: 未找到命令</strong></p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">正克隆到 ‘blog’…<br>bash: git-upload-pack: command not found<br>fatal: Could not read from remote repository.<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li></ul></pre><br><p><strong>解决办法：</strong></p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">sudo ln -s  /usr/local/git/bin/git-upload-pack  /usr/bin/git-upload-pack<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li></ul></pre><br><p><strong>不是一个 git 仓库</strong></p><br><pre class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">fatal: ‘XXXX/blog.git’ does not appear to be a git repository<br>fatal: Could not read from remote repository.<br><div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre><br><p><strong>解决办法：</strong><br><br>确保 <code>_config.yml</code> 文件中 <code>deploy</code> 处的 <code>repo</code> 路径填写正确。</p><br><br>                                    </div>
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/09/18/零次学习入门/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                零次学习入门</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/08/28/拉格朗日乘数法/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                拉格朗日乘数法</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz",
+        appKey: "CVFjJULlnSe9RxKSEngIk5aR",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="www.shiroha.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg" itemprop="image" alt="Shiroha" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="www.shiroha.cn" itemprop="url" rel="author">Shiroha</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Shiroha</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Shiroha<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Shirohaの小矛屋</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/hagase" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/5641766727/profile" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/悦读/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/图集/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer"
+
+    data-id="311465842"
+
+    data-server="netease"
+
+    data-type="playlist"
+
+    data-fixed="true"
+
+    data-autoplay="false"
+
+    data-loop="all"
+
+    data-order="random"
+
+    data-preload="auto"
+
+    data-volume="0.7"
+
+    data-mutex="true"
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

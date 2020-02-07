@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">LearnOpenGL-入门 | Shiroha</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Shirohaの小矛屋";
+  mashiro_option.author_name = "小矛屋";
+  mashiro_option.site_url = "www.shiroha.cn";
+  mashiro_option.v_appId = "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz";
+  mashiro_option.v_appKey = "CVFjJULlnSe9RxKSEngIk5aR";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/3.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/6.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/7.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="www.shiroha.cn">
+          <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>这里是Shirohaの小矛屋，B站UP主矛盾钢琴师。</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/hagase" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/5641766727/profile" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=82156482" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/mao-dun-gang-qin-shi-58/activities" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://weibo.com/mashirozx?is_all=1" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Shirohaの</span>
+            <span class="shironeko">小矛屋</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/悦读/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/图集/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png);" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      LearnOpenGL-入门</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.shiroha.cn">
+            <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.shiroha.cn">Shiroha</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-10-7<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p>@[toc]</p>
+<h1 id="OpenGL"><a href="#OpenGL" class="headerlink" title="OpenGL"></a>OpenGL</h1><p>当我们使用一个对象时，通常看起来像如下一样（把OpenGL上下文看作一个大的结构体）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// OpenGL的状态</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">OpenGL_Context</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">    object* object_Window_Target;</span><br><span class="line">    ...     </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这一小段代码展现了你以后使用OpenGL时常见的工作流。我们首先创建一个对象，然后用一个id保存它的引用（实际数据被储存在后台）。然后我们将对象绑定至上下文的目标位置（例子中窗口对象目标的位置被定义成<strong>GL_WINDOW_TARGET</strong>）。接下来我们设置窗口的选项。最后我们将目标位置的对象id设回0，解绑这个对象。设置的选项将被保存在objectId所引用的对象中，一旦我们重新绑定这个对象到<strong>GL_WINDOW_TARGET</strong>位置，这些选项就会重新生效。<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建对象</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> objectId = <span class="number">0</span>;</span><br><span class="line">glGenObject(<span class="number">1</span>, &amp;objectId);</span><br><span class="line"><span class="comment">// 绑定对象至上下文</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, objectId);</span><br><span class="line"><span class="comment">// 设置当前绑定到 GL_WINDOW_TARGET 的对象的一些选项</span></span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH, <span class="number">800</span>);</span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, <span class="number">600</span>);</span><br><span class="line"><span class="comment">// 将上下文对象设回默认</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<h1 id="创建窗口"><a href="#创建窗口" class="headerlink" title="创建窗口"></a>创建窗口</h1><p>对于用GCC编译的Linux用户建议使用这个命令行选项<strong>-lGLEW -lglfw3 -lGL -lX11 -lpthread -lXrandr -lXi</strong>.没有正确链接相应的库会产生 undefined reference (未定义的引用) 这个错误。</p>
+<h1 id="你好-窗口"><a href="#你好-窗口" class="headerlink" title="你好,窗口"></a>你好,窗口</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>注:glad.c需要放在项目文件夹下<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;glad/glad.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;GLFW/glfw3.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    glfwInit();</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</span><br><span class="line">    <span class="comment">//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//CMakeLists.txt</span></span><br><span class="line">cmake_minimum_required(VERSION <span class="number">3.14</span>)</span><br><span class="line">project(hellow,windows)</span><br><span class="line"><span class="built_in">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="built_in">set</span>(SOURCE_FILES main.cpp glad.c)</span><br><span class="line">add_executable(main $&#123;SOURCE_FILES&#125;)</span><br><span class="line">target_link_libraries(main glfw3 GL m Xrandr Xi X11 Xxf86vm pthread dl Xinerama Xcursor)</span><br></pre></td></tr></table></figure>
+<p>首先，我们在main函数中调用glfwInit函数来初始化GLFW，然后我们可以使用glfwWindowHint函数来配置GLFW。glfwWindowHint函数的第一个参数代表选项的名称，我们可以从很多以GLFW_开头的枚举值中选择；第二个参数接受一个整型，用来设置这个选项的值。该函数的所有的选项以及对应的值都可以在 <a href="http://www.glfw.org/docs/latest/window.html#window_hints" target="_blank" rel="noopener">GLFW’s window handling</a> 这篇文档中找到。如果你现在编译你的cpp文件会得到大量的 undefined reference (未定义的引用)错误，也就是说你并未顺利地链接GLFW库.</p>
+<h2 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h2><p>GLAD是用来管理OpenGL的函数指针的，所以在调用任何OpenGL的函数之前我们需要初始化GLAD.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to initialize GLAD"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们给GLAD传入了用来加载系统相关的OpenGL函数指针地址的函数。GLFW给我们的是glfwGetProcAddress，它根据我们编译的系统定义了正确的函数.</p>
+<h2 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h2><p>在我们开始渲染之前还有一件重要的事情要做，我们必须告诉OpenGL渲染窗口的尺寸大小，即视口(Viewport)，这样OpenGL才只能知道怎样根据窗口大小显示数据和坐标。我们可以通过调用glViewport函数来设置窗口的维度(Dimension)：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glViewport(<span class="number">0</span>, <span class="number">0</span>, <span class="number">800</span>, <span class="number">600</span>);</span><br></pre></td></tr></table></figure>
+<p>glViewport函数前两个参数控制窗口左下角的位置。第三个和第四个参数控制渲染窗口的宽度和高度（像素）。<br>我们实际上也可以将视口的维度设置为比GLFW的维度小，这样子之后所有的OpenGL渲染将会在一个更小的窗口中显示，这样子的话我们也可以将一些其它元素显示在OpenGL视口之外.</p>
+<blockquote>
+<p>OpenGL幕后使用glViewport中定义的位置和宽高进行2D坐标的转换，将OpenGL中的位置坐标转换为你的屏幕坐标。例如，OpenGL中的坐标(-0.5, 0.5)有可能（最终）被映射为屏幕中的坐标(200,450)。注意，处理过的OpenGL坐标范围只为-1到1，因此我们事实上将(-1到1)范围内的坐标映射到(0, 800)和(0, 600).</p>
+</blockquote>
+<p>然而，当用户改变窗口的大小的时候，视口也应该被调整。我们可以对窗口注册一个回调函数(Callback Function)，它会在每次窗口大小被调整的时候被调用。这个回调函数的原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">framebuffer_size_callback</span><span class="params">(GLFWwindow* window, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这个帧缓冲大小函数需要一个GLFWwindow作为它的第一个参数，以及两个整数表示窗口的新维度。每当窗口改变大小，GLFW会调用这个函数并填充相应的参数供你处理.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">framebuffer_size_callback</span><span class="params">(GLFWwindow* window, <span class="keyword">int</span> width, <span class="keyword">int</span> height)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    glViewport(<span class="number">0</span>, <span class="number">0</span>, width, height);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们还需要注册这个函数，告诉GLFW我们希望每当窗口调整大小的时候调用这个函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);</span><br></pre></td></tr></table></figure>
+<p>当窗口被第一次显示的时候framebuffer_size_callback也会被调用。对于视网膜(Retina)显示屏，width和height都会明显比原输入值更高一点。</p>
+<p>我们还可以将我们的函数注册到其它很多的回调函数中。比如说，我们可以创建一个回调函数来处理手柄输入变化，处理错误消息等。我们会在创建窗口之后，渲染循环初始化之前注册这些回调函数。</p>
+<h2 id="准备好你的引擎"><a href="#准备好你的引擎" class="headerlink" title="准备好你的引擎"></a>准备好你的引擎</h2><p>我们可不希望只绘制一个图像之后我们的应用程序就立即退出并关闭窗口。我们希望程序在我们主动关闭它之前不断绘制图像并能够接受用户输入。因此，我们需要在程序中添加一个while循环，我们可以把它称之为<strong>渲染循环(Render Loop)</strong>，它能在我们让GLFW退出前一直保持运行。下面几行的代码就实现了一个简单的渲染循环：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">    glfwPollEvents();    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>glfwWindowShouldClose函数在我们每次循环的开始前检查一次GLFW是否被要求退出，如果是的话该函数返回true然后渲染循环便结束了，之后为我们就可以关闭应用程序了.</li>
+<li>glfwPollEvents函数检查有没有触发什么事件（比如键盘输入、鼠标移动等）、更新窗口状态，并调用对应的回调函数(可以通过回调方法手动设置).</li>
+<li>glfwSwapBuffers函数会交换颜色缓冲（它是一个储存着GLFW窗口每一个像素颜色值的大缓冲），它在这一迭代中被用来绘制，并且将会作为输出显示在屏幕上.</li>
+</ul>
+<blockquote>
+<p>双缓冲(Double Buffer)<br>应用程序使用单缓冲绘图时可能会存在图像闪烁的问题。 这是因为生成的图像不是一下子被绘制出来的，而是按照从左到右，由上而下逐像素地绘制而成的。最终图像不是在瞬间显示给用户，而是通过一步一步生成的，这会导致渲染的结果很不真实。为了规避这些问题，我们应用双缓冲渲染窗口应用程序。前缓冲保存着最终输出的图像，它会在屏幕上显示；而所有的的渲染指令都会在后缓冲上绘制。当所有的渲染指令执行完毕后，我们交换(Swap)前缓冲和后缓冲，这样图像就立即呈显出来，之前提到的不真实感就消除了.</p>
+</blockquote>
+<h2 id="最后一件事"><a href="#最后一件事" class="headerlink" title="最后一件事"></a>最后一件事</h2><p>当渲染循环结束后我们需要正确释放/删除之前的分配的所有资源。我们可以在main函数的最后调用glfwTerminate函数来完成:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glfwTerminate();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>这样便能清理所有的资源并正确地退出应用程序。现在你可以尝试编译并运行你的应用程序了，如果没做错的话，你将会看到如下的输出：<br><img src="https://img-blog.csdnimg.cn/20190827162722911.png" alt="在这里插入图片描述"></p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>我们同样也希望能够在GLFW中实现一些输入控制，这可以通过使用GLFW的几个输入函数来完成。我们将会使用GLFW的glfwGetKey函数，它需要一个窗口以及一个按键作为输入。这个函数将会返回这个按键是否正在被按下。我们将创建一个processInput函数来让所有的输入代码保持整洁.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processInput</span><span class="params">(GLFWwindow *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)</span><br><span class="line">        glfwSetWindowShouldClose(window, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们检查用户是否按下了返回键(Esc)（如果没有按下，glfwGetKey将会返回GLFW_RELEASE.如果用户的确按下了返回键，我们将通过glfwSetwindowShouldClose使用把WindowShouldClose属性设置为 true的方法关闭GLFW.下一次while循环的条件检测将会失败，程序将会关闭.<br>我们接下来在渲染循环的每一个迭代中调用processInput：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    processInput(window);</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">    glfwPollEvents();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就给我们一个非常简单的方式来检测特定的键是否被按下，并在每一帧做出处理.</p>
+<h2 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h2><p>我们要把所有的渲染(Rendering)操作放到渲染循环中，因为我们想让这些渲染指令在每次渲染循环迭代的时候都能被执行。代码将会是这样的：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 渲染循环</span></span><br><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 输入</span></span><br><span class="line">    processInput(window);</span><br><span class="line">    <span class="comment">// 渲染指令</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 检查并调用事件，交换缓冲</span></span><br><span class="line">    glfwPollEvents();</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了测试一切都正常工作，我们使用一个自定义的颜色清空屏幕。在每个新的渲染迭代开始的时候我们总是希望清屏，否则我们仍能看见上一次迭代的渲染结果（这可能是你想要的效果，但通常这不是）.我们可以通过调用glClear函数来清空屏幕的颜色缓冲，它接受一个缓冲位(Buffer Bit)来指定要清空的缓冲，可能的缓冲位有GL_COLOR_BUFFER_BIT，GL_DEPTH_BUFFER_BIT和GL_STENCIL_BUFFER_BIT。由于现在我们只关心颜色值，所以我们只清空颜色缓冲.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glClearColor(<span class="number">0.2f</span>, <span class="number">0.3f</span>, <span class="number">0.3f</span>, <span class="number">1.0f</span>);</span><br><span class="line">glClear(GL_COLOR_BUFFER_BIT);</span><br></pre></td></tr></table></figure>
+<p>注意，除了glClear之外，我们还调用了glClearColor来设置清空屏幕所用的颜色。当调用glClear函数，清除颜色缓冲之后，整个颜色缓冲都会被填充为glClearColor里所设置的颜色。在这里，我们将屏幕设置为了类似黑板的深蓝绿色.<br><img src="https://img-blog.csdnimg.cn/20190827163313245.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>你应该能够回忆起来我们在 OpenGL 这节教程的内容，glClearColor函数是一个状态设置函数，而glClear函数则是一个状态使用的函数，它使用了当前的状态来获取应该清除为的颜色</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//CMakeLists.txt</span></span><br><span class="line">cmake_minimum_required(VERSION <span class="number">3.14</span>)</span><br><span class="line">project(hellow,windows)</span><br><span class="line"><span class="built_in">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="built_in">set</span>(SOURCE_FILES main.cpp glad.c)</span><br><span class="line">add_executable(main $&#123;SOURCE_FILES&#125;)</span><br><span class="line">target_link_libraries(main glfw3 GL m Xrandr Xi X11 Xxf86vm pthread dl Xinerama Xcursor)</span><br></pre></td></tr></table></figure>
+<h1 id="你好-三角形"><a href="#你好-三角形" class="headerlink" title="你好,三角形"></a>你好,三角形</h1><blockquote>
+<p>在学习此节之前，建议将这三个单词先记下来：<br>顶点数组对象：Vertex Array Object，VAO<br>顶点缓冲对象：Vertex Buffer Object，VBO<br>索引缓冲对象：Element Buffer Object，EBO或Index Buffer Object，IBO<br>当指代这三个东西的时候，可能使用的是全称，也可能用的是英文缩写，翻译的时候和原文保持的一致。由于没有英文那样的分词间隔，中文全称的部分可能不太容易注意。但请记住，缩写和中文全称指代的是一个东西.</p>
+</blockquote>
+<p>在OpenGL中，任何事物都在3D空间中，而屏幕和窗口却是2D像素数组，这导致OpenGL的大部分工作都是关于把3D坐标转变为适应你屏幕的2D像素。3D坐标转为2D坐标的处理过程是由OpenGL的<strong>图形渲染管线</strong>（Graphics Pipeline，大多译为管线，实际上指的是一堆原始图形数据途经一个输送管道，期间经过各种变化处理最终出现在屏幕的过程）管理的.图形渲染管线可以被划分为两个主要部分：第一部分把你的3D坐标转换为2D坐标，第二部分是把2D坐标转变为实际的有颜色的像素.这个教程里，我们会简单地讨论一下图形渲染管线，以及如何利用它创建一些漂亮的像素.</p>
+<blockquote>
+<p>2D坐标和像素也是不同的，2D坐标精确表示一个点在2D空间中的位置，而2D像素是这个点的近似值，2D像素受到你的屏幕/窗口分辨率的限制</p>
+</blockquote>
+<p>图形渲染管线接受一组3D坐标，然后把它们转变为你屏幕上的有色2D像素输出.图形渲染管线可以被划分为几个阶段，每个阶段将会把前一个阶段的输出作为输入.所有这些阶段都是高度专门化的（它们都有一个特定的函数），并且很容易并行执行.正是由于它们具有并行执行的特性，当今大多数显卡都有成千上万的小处理核心，它们在GPU上为每一个（渲染管线）阶段运行各自的小程序，从而在图形渲染管线中快速处理你的数据.这些小程序叫做<strong>着色器</strong>(Shader).</p>
+<p>有些着色器允许开发者自己配置，这就允许我们用自己写的着色器来替换默认的。这样我们就可以更细致地控制图形渲染管线中的特定部分了，而且因为它们运行在GPU上，所以它们可以给我们节约宝贵的CPU时间.OpenGL着色器是用OpenGL着色器语言(OpenGL Shading Language, GLSL)写成的，在下一节中我们再花更多时间研究它.</p>
+<p>下面，你会看到一个图形渲染管线的每个阶段的抽象展示.要注意蓝色部分代表的是我们可以注入自定义的着色器的部分.<br><img src="https://img-blog.csdnimg.cn/20190827164437129.png" alt="在这里插入图片描述"><br>首先，我们以数组的形式传递3个3D坐标作为图形渲染管线的输入，用来表示一个三角形，这个数组叫做<strong>顶点数据</strong>(Vertex Data)；顶点数据是一系列顶点的集合.一个顶点(Vertex)是一个3D坐标的数据的集合.而顶点数据是用<strong>顶点属性</strong>(Vertex Attribute)表示的，它可以包含任何我们想用的数据，但是简单起见，我们还是假定每个顶点只由一个3D位置(译注1)和一些颜色值组成的吧.</p>
+<blockquote>
+<p>为了让OpenGL知道我们的坐标和颜色值构成的到底是什么，OpenGL需要你去指定这些数据所表示的渲染类型。我们是希望把这些数据渲染成一系列的点？一系列的三角形？还是仅仅是一个长长的线？做出的这些提示叫做<strong>图元</strong>(Primitive)，任何一个绘制指令的调用都将把图元传递给OpenGL.这是其中的几个：<strong>GL_POINTS、GL_TRIANGLES、GL_LINE_STRIP</strong>.</p>
+</blockquote>
+<p>图形渲染管线的第一个部分是<strong>顶点着色器</strong>(Vertex Shader)，它把一个单独的顶点作为输入。顶点着色器主要的目的是把3D坐标转为另一种3D坐标（后面会解释），同时顶点着色器允许我们对顶点属性进行一些基本处理。</p>
+<p><strong>图元装配</strong>(Primitive Assembly)阶段将顶点着色器输出的所有顶点作为输入（如果是GL_POINTS，那么就是一个顶点），所有的点装配成指定图元的形状；本节例子中是一个三角形。</p>
+<p>图元装配阶段的输出会传递给<strong>几何着色器</strong>(Geometry Shader).几何着色器把图元形式的一系列顶点的集合作为输入，它可以通过产生新顶点构造出新的（或是其它的）图元来生成其他形状。例子中，它生成了另一个三角形.</p>
+<p>几何着色器的输出会被传入<strong>光栅化阶段</strong>(Rasterization Stage)，这里它会把图元映射为最终屏幕上相应的像素，生成供<strong>片段着色器</strong>(Fragment Shader)使用的<strong>片段</strong>(Fragment).在片段着色器运行之前会执行<strong>裁切</strong>(Clipping).裁切会丢弃超出你的视图以外的所有像素，用来提升执行效率.</p>
+<blockquote>
+<p>OpenGL中的一个片段是OpenGL渲染一个像素所需的所有数据.</p>
+</blockquote>
+<p>片段着色器的主要目的是计算一个像素的最终颜色，这也是所有OpenGL高级效果产生的地方。通常，片段着色器包含3D场景的数据（比如光照、阴影、光的颜色等等），这些数据可以被用来计算最终像素的颜色。</p>
+<p>在所有对应颜色值确定以后，最终的对象将会被传到最后一个阶段，我们叫做Alpha测试和<strong>混合</strong>(Blending)阶段。这个阶段检测片段的对应的深度（和模板(Stencil)）值（后面会讲），用它们来<strong>判断这个像素是其它物体的前面还是后面，决定是否应该丢弃</strong>.这个阶段也会检查alpha值（alpha值定义了一个物体的透明度）并对物体进行混合(Blend).所以，即使在片段着色器中计算出来了一个像素输出的颜色，在渲染多个三角形的时候最后的像素颜色也可能完全不同.</p>
+<p>可以看到，图形渲染管线非常复杂，它包含很多可配置的部分.然而，对于大多数场合，我们只需要配置顶点和片段着色器就行了.几何着色器是可选的，通常使用它默认的着色器就行了.</p>
+<p>在现代OpenGL中，我们必须定义至少一个顶点着色器和一个片段着色器（因为GPU中没有默认的顶点/片段着色器）.出于这个原因，刚开始学习现代OpenGL的时候可能会非常困难，因为在你能够渲染自己的第一个三角形之前已经需要了解一大堆知识了.在本节结束你最终渲染出你的三角形的时候，你也会了解到非常多的图形编程知识.</p>
+<h2 id="顶点输入"><a href="#顶点输入" class="headerlink" title="顶点输入"></a>顶点输入</h2><p>开始绘制图形之前，我们必须先给OpenGL输入一些顶点数据.OpenGL是一个3D图形库，所以我们在OpenGL中指定的所有坐标都是3D坐标（x、y和z）.OpenGL不是简单地把所有的3D坐标变换为屏幕上的2D像素；OpenGL仅当3D坐标在3个轴（x、y和z）上都为<strong>-1.0到1.0的范围内</strong>时才处理它.所有在所谓的<strong>标准化设备坐标</strong>(Normalized Device Coordinates)范围内的坐标才会最终呈现在屏幕上（在这个范围以外的坐标都不会显示）.</p>
+<p>由于我们希望渲染一个三角形，我们一共要指定三个顶点，每个顶点都有一个3D位置.我们会将它们以标准化设备坐标的形式（OpenGL的可见区域）定义为一个float数组.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.0f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>由于OpenGL是在3D空间中工作的，而我们渲染的是一个2D三角形，我们将它顶点的z坐标设置为0.0.这样子的话三角形每一点的深度(Depth)都是一样的，从而使它看上去像是2D的.</p>
+<blockquote>
+<p>通常深度可以理解为z坐标，它代表一个像素在空间中和你的距离，如果离你远就可能被别的像素遮挡，你就看不到它了，它会被丢弃，以节省资源.</p>
+</blockquote>
+<blockquote>
+<p><strong>标准化设备坐标(Normalized Device Coordinates, NDC)</strong><br>一旦你的顶点坐标已经在顶点着色器中处理过，它们就应该是标准化设备坐标了，标准化设备坐标是一个x、y和z值在-1.0到1.0的一小段空间。任何落在范围外的坐标都会被丢弃/裁剪，不会显示在你的屏幕上。下面你会看到我们定义的在标准化设备坐标中的三角形(忽略z轴)：<br>                        <img src="https://img-blog.csdnimg.cn/20190827165700896.png" alt="在这里插入图片描述"><br>  与通常的屏幕坐标不同，y轴正方向为向上，(0, 0)坐标是这个图像的中心，而不是左上角。最终你希望所有(变换过的)坐标都在这个坐标空间中，否则它们就不可见了.<br>  你的标准化设备坐标接着会变换为<strong>屏幕空间坐标</strong>(Screen-space Coordinates)，这是使用你通过glViewport函数提供的数据，进行<strong>视口变换</strong>(Viewport Transform)完成的.所得的屏幕空间坐标又会被变换为片段输入到片段着色器中.</p>
+</blockquote>
+<p>定义这样的顶点数据以后，我们会把它作为输入发送给图形渲染管线的第一个处理阶段：顶点着色器.它会在GPU上创建内存用于储存我们的顶点数据，还要配置OpenGL如何解释这些内存，并且指定其如何发送给显卡.顶点着色器接着会处理我们在内存中指定数量的顶点.</p>
+<p>我们通过<strong>顶点缓冲对象</strong>(Vertex Buffer Objects, VBO)管理这个内存，它会在GPU内存（通常被称为显存）中储存大量顶点.使用这些缓冲对象的好处是我们<strong>可以一次性的发送一大批数据到显卡上</strong>，而不是每个顶点发送一次.从CPU把数据发送到显卡相对较慢，所以只要可能我们都要尝试尽量一次性发送尽可能多的数据.当数据发送至显卡的内存中后，顶点着色器几乎能立即访问顶点，这是个非常快的过程.</p>
+<p>顶点缓冲对象有一个独一无二的ID，所以我们可以使用glGenBuffers函数和一个缓冲ID生成一个VBO对象:<br><strong>加粗样式</strong><br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> VBO;</span><br><span class="line">glGenBuffers(<span class="number">1</span>, &amp;VBO);</span><br></pre></td></tr></table></figure></p>
+<p>OpenGL有很多缓冲对象类型，顶点缓冲对象的缓冲类型是GL_ARRAY_BUFFER.OpenGL允许我们同时绑定<strong>多个缓冲</strong>，只要它们是<strong>不同的缓冲类型</strong>.我们可以使用glBindBuffer函数把新创建的缓冲绑定到GL_ARRAY_BUFFER目标上：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glBindBuffer(GL_ARRAY_BUFFER, VBO);</span><br></pre></td></tr></table></figure>
+<p>从这一刻起，我们使用的任何（在GL_ARRAY_BUFFER目标上的）缓冲调用都会用来配置当前绑定的缓冲(VBO).然后我们可以调用glBufferData函数，它会把之前定义的顶点数据复制到缓冲的内存中：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br></pre></td></tr></table></figure>
+<p>glBufferData是一个专门用来<strong>把用户定义的数据复制到当前绑定缓冲</strong>的函数.它的第一个参数是<strong>目标缓冲的类型</strong>：顶点缓冲对象当前绑定到GL_ARRAY_BUFFER目标上.第二个参数指定<strong>传输数据的大小(以字节为单位)</strong>；用一个简单的<strong>sizeof</strong>计算出顶点数据大小就行.第三个参数是我们<strong>希望发送的实际数据</strong>.</p>
+<p>第四个参数指定了我们希望显卡如何管理给定的数据。它有三种形式：</p>
+<ul>
+<li><strong>GL_STATIC_DRAW</strong> ：数据不会或几乎不会改变.</li>
+<li><strong>GL_DYNAMIC_DRAW</strong>：数据会被改变很多.</li>
+<li><strong>GL_STREAM_DRAW</strong> ：数据每次绘制时都会改变.</li>
+</ul>
+<p>三角形的位置数据不会改变，每次渲染调用时都保持原样，所以它的使用类型最好是GL_STATIC_DRAW.如果，比如说一个缓冲中的数据将频繁被改变，那么使用的类型就是GL_DYNAMIC_DRAW或GL_STREAM_DRAW，这样就能确保显卡把数据放在能够高速写入的内存部分。</p>
+<p>现在我们已经把顶点数据储存在显卡的内存中，用VBO这个顶点缓冲对象管理.下面我们会创建一个顶点和片段着色器来真正处理这些数据.现在我们开始着手创建它们吧.</p>
+<h2 id="定点着色器"><a href="#定点着色器" class="headerlink" title="定点着色器"></a>定点着色器</h2><p><strong>顶点着色器</strong>(Vertex Shader)是几个可编程着色器中的一个.如果我们打算做渲染的话，现代OpenGL需要我们至少设置一个顶点和一个片段着色器.我们会简要介绍一下着色器以及配置两个非常简单的着色器来绘制我们第一个三角形.下一节中我们会更详细的讨论着色器.</p>
+<p>我们需要做的第一件事是用着色器语言<strong>GLSL</strong>(OpenGL Shading Language)编写顶点着色器，然后编译这个着色器，这样我们就可以在程序中使用它了.下面你会看到一个非常基础的GLSL顶点着色器的源代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">layout (location = <span class="number">0</span>) in vec3 aPos;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    gl_Position = vec4(aPos.x, aPos.y, aPos.z, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，GLSL看起来很像C语言。每个着色器都起始于一个版本声明.OpenGL 3.3以及和更高版本中，GLSL版本号和OpenGL的版本是匹配的（比如说GLSL 420版本对应于OpenGL 4.2）.我们同样明确表示我们会使用<strong>核心模式</strong>(core).</p>
+<p>下一步，使用<strong>in关键字</strong>，在顶点着色器中声明所有的<strong>输入顶点属性</strong>(Input Vertex Attribute).现在我们只关心<strong>位置</strong>(Position)数据，所以我们只需要一个顶点属性.GLSL有一个<strong>向量数据类型</strong>，它<strong>包含1到4个float分量</strong>，包含的数量可以从它的<strong>后缀数字</strong>看出来.由于每个顶点都有一个3D坐标，我们就创建一个<strong>vec3</strong>输入变量aPos.我们同样也通过layout (location = 0)设定了输入变量的位置值(Location),你后面会看到为什么我们会需要这个位置值.</p>
+<blockquote>
+<p><strong>向量(Vector)</strong><br>在图形编程中我们经常会使用向量这个数学概念，因为它简明地表达了任意空间中的位置和方向，并且它有非常有用的数学属性。在GLSL中一个向量有最多4个分量，每个分量值都代表空间中的一个坐标，它们可以通过vec.x、vec.y、vec.z和vec.w来获取.注意<strong>vec.w分量不是用作表达空间中的位置的</strong>（我们处理的是3D不是4D），而是用在所谓<strong>透视除法</strong>(Perspective Division)上.我们会在后面的教程中更详细地讨论向量.</p>
+</blockquote>
+<p>为了设置顶点着色器的输出，我们必须把位置数据赋值给<strong>预定义</strong>的gl_Position变量，它在幕后是<strong>vec4类型</strong>的.在main函数的最后，我们将gl_Position设置的值会成为该顶点着色器的输出.由于我们的输入是一个3分量的向量，我们必须把它转换为4分量的.我们可以把vec3的数据作为vec4构造器的参数，同时把<strong>w分量设置为1.0f</strong>（我们会在后面解释为什么）来完成这一任务.</p>
+<p>当前这个顶点着色器可能是我们能想到的最简单的顶点着色器了，因为我们对输入数据什么都没有处理就把它传到着色器的输出了.<strong>在真实的程序里输入数据通常都不是标准化设备坐标</strong>，所以我们首先必须先把它们<strong>转换至OpenGL的可视区域内</strong>.</p>
+<h2 id="编译着色器"><a href="#编译着色器" class="headerlink" title="编译着色器"></a>编译着色器</h2><p>我们已经写了一个顶点着色器源码（储存在一个C的字符串中），但是为了能够让OpenGL使用它，我们必须在运行时动态编译它的源码.</p>
+<p>我们首先要做的是创建一个着色器对象，注意还是用ID来引用的.所以我们储存这个顶点着色器为<strong>unsigned int</strong>，然后用<strong>glCreateShader</strong>创建这个着色器：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> vertexShader;</span><br><span class="line">vertexShader = glCreateShader(GL_VERTEX_SHADER);</span><br></pre></td></tr></table></figure>
+<p>我们把需要创建的<strong>着色器类型</strong>以参数形式提供给glCreateShader.由于我们正在创建一个顶点着色器，传递的参数是GL_VERTEX_SHADER.</p>
+<p>下一步我们把这个着色器源码附加到着色器对象上，然后编译它：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glShaderSource(vertexShader, <span class="number">1</span>, &amp;vertexShaderSource, <span class="literal">NULL</span>);</span><br><span class="line">glCompileShader(vertexShader);</span><br></pre></td></tr></table></figure>
+<p>glShaderSource函数把<strong>要编译的着色器对象</strong>作为第一个参数.第二参数指定了<strong>传递的源码字符串数量</strong>，这里只有一个.第三个参数是<strong>顶点着色器真正的源码</strong>，第四个参数我们先设置为<strong>NULL</strong>.</p>
+<p>你可能会希望检测在调用glCompileShader后编译是否成功了，如果没成功的话，你还会希望知道错误是什么，这样你才能修复它们。检测编译时错误可以通过以下代码来实现：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span>  success;</span><br><span class="line"><span class="keyword">char</span> infoLog[<span class="number">512</span>];</span><br><span class="line">glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &amp;success);</span><br></pre></td></tr></table></figure>
+<p>首先我们定义一个整型变量来表示是否成功编译，还定义了一个储存错误消息（如果有的话）的容器。然后我们用glGetShaderiv检查是否编译成功.如果编译失败，我们会用glGetShaderInfoLog获取错误消息，然后打印它.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(!success)</span><br><span class="line">&#123;</span><br><span class="line">    glGetShaderInfoLog(vertexShader, <span class="number">512</span>, <span class="literal">NULL</span>, infoLog);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"</span> &lt;&lt; infoLog &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="片段着色器"><a href="#片段着色器" class="headerlink" title="片段着色器"></a>片段着色器</h2><p><strong>片段着色器</strong>(Fragment Shader)是第二个也是最后一个我们打算创建的用于渲染三角形的着色器.片段着色器所做的是计算像素最后的颜色输出.为了让事情更简单，我们的片段着色器将会一直输出橘黄色.</p>
+<blockquote>
+<p>在计算机图形中颜色被表示为有4个元素的数组：红色、绿色、蓝色和alpha(透明度)分量，通常缩写为RGBA.当在OpenGL或GLSL中定义一个颜色的时候，我们把颜色每个分量的强度设置在0.0到1.0之间.比如说我们设置红为1.0f，绿为1.0f，我们会得到两个颜色的混合色，即黄色.这三种颜色分量的不同调配可以生成超过1600万种不同的颜色！</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">out vec4 FragColor;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FragColor = vec4(<span class="number">1.0f</span>, <span class="number">0.5f</span>, <span class="number">0.2f</span>, <span class="number">1.0f</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>片段着色器只需要一个输出变量，这个变量是一个4分量向量，它表示的是最终的输出颜色，我们应该自己将其计算出来。我们可以用<strong>out关键字</strong>声明输出变量，这里我们命名为FragColor。下面，我们将一个alpha值为1.0(1.0代表完全不透明)的橘黄色的vec4赋值给颜色输出。</p>
+<p>编译片段着色器的过程与顶点着色器类似，只不过我们使用<strong>GL_FRAGMENT_SHADER常量</strong>作为着色器类型：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> fragmentShader;</span><br><span class="line">fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);</span><br><span class="line">glShaderSource(fragmentShader, <span class="number">1</span>, &amp;fragmentShaderSource, <span class="literal">NULL</span>);</span><br><span class="line">glCompileShader(fragmentShader);</span><br></pre></td></tr></table></figure>
+<p>两个着色器现在都编译了，剩下的事情是把两个着色器对象<strong>链接</strong>到一个用来渲染的着色器程序(Shader Program)中.</p>
+<h2 id="着色器程序"><a href="#着色器程序" class="headerlink" title="着色器程序"></a>着色器程序</h2><p>着色器程序对象(Shader Program Object)是多个着色器合并之后并最终链接完成的版本.如果要使用刚才编译的着色器我们必须把它们<strong>链接</strong>(Link)为一个着色器程序对象，然后在渲染对象的时候激活这个着色器程序。已激活着色器程序的着色器将在我们发送渲染调用的时候被使用.</p>
+<p>当链接着色器至一个程序的时候，它会<strong>把每个着色器的输出链接到下个着色器的输入</strong>.当输出和输入不匹配的时候，你会得到一个连接错误.</p>
+<p>创建一个程序对象很简单：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> shaderProgram;</span><br><span class="line">shaderProgram = glCreateProgram();</span><br></pre></td></tr></table></figure>
+<p>glCreateProgram函数创建一个程序，并返回新创建程序对象的ID引用.现在我们需要把之前编译的着色器附加到程序对象上，然后用glLinkProgram链接它们：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glAttachShader(shaderProgram, vertexShader);</span><br><span class="line">glAttachShader(shaderProgram, fragmentShader);</span><br><span class="line">glLinkProgram(shaderProgram);</span><br></pre></td></tr></table></figure>
+<p>代码应该很清楚，我们把着色器附加到了程序上，然后用glLinkProgram链接.</p>
+<p>就像着色器的编译一样，我们也可以检测链接着色器程序是否失败，并获取相应的日志。与上面不同，我们不会调用glGetShaderiv和glGetShaderInfoLog，现在我们使用：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glGetProgramiv(shaderProgram, GL_LINK_STATUS, &amp;success);</span><br><span class="line"><span class="keyword">if</span>(!success) &#123;</span><br><span class="line">    glGetProgramInfoLog(shaderProgram, <span class="number">512</span>, <span class="literal">NULL</span>, infoLog);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到的结果就是一个程序对象，我们可以调用glUseProgram函数，用刚创建的程序对象作为它的参数，以激活这个程序对象：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glUseProgram(shaderProgram);</span><br></pre></td></tr></table></figure>
+<p>在glUseProgram函数调用之后，每个着色器调用和渲染调用都会使用这个程序对象（也就是之前写的着色器)了.</p>
+<p>对了，在把着色器对象链接到程序对象以后，记得删除着色器对象，我们不再需要它们了：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glDeleteShader(vertexShader);</span><br><span class="line">glDeleteShader(fragmentShader);</span><br></pre></td></tr></table></figure>
+<p>现在，我们已经把输入顶点数据发送给了GPU，并指示了GPU如何在顶点和片段着色器中处理它.就快要完成了，但还没结束，OpenGL还不知道它该如何解释内存中的顶点数据，以及它该如何将顶点数据链接到顶点着色器的属性上。我们需要告诉OpenGL怎么做.</p>
+<h2 id="链接顶点属性"><a href="#链接顶点属性" class="headerlink" title="链接顶点属性"></a>链接顶点属性</h2><p>顶点着色器允许我们指定任何以顶点属性为形式的输入.这使其具有很强的灵活性的同时，它还的确意味着我们必须手动指定输入数据的哪一个部分对应顶点着色器的哪一个顶点属性.所以，我们必须在渲染前指定OpenGL该如何<strong>解释</strong>顶点数据。</p>
+<p>我们的顶点缓冲数据会被解析为下面这样子：<br><img src="https://img-blog.csdnimg.cn/20190827172547706.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>位置数据被储存为32位（4字节）浮点值</li>
+<li>每个位置包含3个这样的值</li>
+<li>在这3个值之间没有空隙（或其他值）,这几个值在数组中紧密排列(Tightly Packed)。</li>
+<li>数据中第一个值在缓冲开始的位置</li>
+</ul>
+<p>有了这些信息我们就可以使用glVertexAttribPointer函数告诉OpenGL该如何解析顶点数据（应用到逐个顶点属性上）了：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)<span class="number">0</span>);</span><br><span class="line">glEnableVertexAttribArray(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>glVertexAttribPointer函数的参数非常多，所以我会逐一介绍它们：</p>
+<ul>
+<li>第一个参数指定我们要配置的<strong>顶点属性</strong>.还记得我们在<strong>顶点着色器</strong>中使用layout(location = 0)定义了position顶点属性的位置值(Location)吗？它可以把顶点属性的位置值设置为0.因为我们希望把数据传递到这一个顶点属性中，所以这里我们传入0.</li>
+<li>第二个参数指定<strong>顶点属性的大小</strong>.顶点属性是一个<strong>vec3</strong>，它由3个值组成，所以大小是3.</li>
+<li>第三个参数指定数据的类型，这里是<strong>GL_FLOAT</strong>(GLSL中vec*都是由浮点数值组成的).</li>
+<li>下个参数定义我们是否希望数据被<strong>标准化</strong>(Normalize).如果我们设置为GL_TRUE，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间.我们把它设置为GL_FALSE.</li>
+<li>第五个参数叫做<strong>步长</strong>(Stride)，它告诉我们在连续的顶点属性组之间的间隔.由于下个组位置数据在3个float之后，我们把<strong>步长设置为3 * sizeof(float)</strong>.要注意的是由于我们知道这个数组是紧密排列的（在两个顶点属性之间没有空隙）我们也可以<strong>设置为0来让OpenGL决定具体步长是多少（只有当数值是紧密排列时才可用）</strong>.一旦我们有更多的顶点属性，我们就必须更小心地定义每个顶点属性之间的间隔，我们在后面会看到更多的例子（译注: 这个参数的意思简单说就是<strong>从这个属性第二次出现的地方到整个数组0位置之间有多少字节</strong>）.</li>
+<li>最后一个参数的类型是<strong>void*</strong>，所以需要我们进行这个奇怪的<strong>强制类型转换</strong>。它表示位置数据在缓冲中<strong>起始位置的偏移量</strong>(Offset)。由于位置数据在<strong>数组的开头</strong>，所以这里是0.我们会在后面详细解释这个参数.</li>
+</ul>
+<blockquote>
+<p>每个顶点属性从一个VBO管理的内存中获得它的数据，而具体是从哪个VBO（程序中可以有多个VBO）获取则是通过在调用glVertexAttribPointer时绑定到GL_ARRAY_BUFFER的VBO决定的.由于在调用glVertexAttribPointer之前绑定的是先前定义的VBO对象，顶点属性0现在会链接到它的顶点数据.</p>
+</blockquote>
+<p>现在我们已经定义了OpenGL该如何解释顶点数据，我们现在应该使用glEnableVertexAttribArray，以顶点属性位置值作为参数，启用顶点属性；顶点属性默认是禁用的.自此，所有东西都已经设置好了：我们使用一个顶点缓冲对象将顶点数据初始化至缓冲中，建立了一个顶点和一个片段着色器，并告诉了OpenGL如何把顶点数据链接到顶点着色器的顶点属性上.在OpenGL中绘制一个物体，代码会像是这样：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 0. 复制顶点数组到缓冲中供OpenGL使用</span></span><br><span class="line">glBindBuffer(GL_ARRAY_BUFFER, VBO);</span><br><span class="line">glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 1. 设置顶点属性指针</span></span><br><span class="line">glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)<span class="number">0</span>);</span><br><span class="line">glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// 2. 当我们渲染一个物体时要使用着色器程序</span></span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line"><span class="comment">// 3. 绘制物体</span></span><br><span class="line">someOpenGLFunctionThatDrawsOurTriangle();</span><br></pre></td></tr></table></figure></p>
+<p>每当我们绘制一个物体的时候都必须重复这一过程。这看起来可能不多，但是如果有超过5个顶点属性，上百个不同物体呢（这其实并不罕见）.绑定正确的缓冲对象，为每个物体配置所有顶点属性很快就变成一件麻烦事.有没有一些方法可以使我们把所有这些状态配置储存在一个对象中，并且可以通过绑定这个对象来恢复状态呢？</p>
+<h2 id="顶点数组对象"><a href="#顶点数组对象" class="headerlink" title="顶点数组对象"></a>顶点数组对象</h2><p>顶点数组对象(Vertex Array Object, VAO)可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中.这样的好处就是，当配置顶点属性指针时，你只需要将那些调用执行一次，之后再绘制物体的时候只需要绑定相应的VAO就行了.这使在不同顶点数据和属性配置之间切换变得非常简单，只需要绑定不同的VAO就行了.刚刚设置的所有状态都将存储在VAO中.</p>
+<blockquote>
+<p><strong>OpenGL的核心模式要求我们使用VAO</strong>，所以它知道该如何处理我们的顶点输入.如果我们绑定VAO失败，OpenGL会<strong>拒绝绘制任何东西</strong>.</p>
+</blockquote>
+<p>一个顶点数组对象会储存以下这些内容：</p>
+<ul>
+<li>glEnableVertexAttribArray和glDisableVertexAttribArray的调用.</li>
+<li>通过glVertexAttribPointer设置的顶点属性配置.</li>
+<li>通过glVertexAttribPointer调用与顶点属性关联的顶点缓冲对象.<br><img src="https://img-blog.csdnimg.cn/20190827173837260.png" alt="在这里插入图片描述"><br>创建一个VAO和创建一个VBO很类似：<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> VAO;</span><br><span class="line">glGenVertexArrays(<span class="number">1</span>, &amp;VAO);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>要想使用VAO，要做的只是使用glBindVertexArray绑定VAO.从绑定之后起，我们应该绑定和配置对应的VBO和属性指针，之后解绑VAO供之后使用.当我们打算绘制一个物体的时候，我们只要在绘制物体前简单地把VAO绑定到希望使用的设定上就行了.这段代码应该看起来像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ..:: 初始化代码（只运行一次 (除非你的物体频繁改变)） :: ..</span></span><br><span class="line"><span class="comment">// 1. 绑定VAO</span></span><br><span class="line">glBindVertexArray(VAO);</span><br><span class="line"><span class="comment">// 2. 把顶点数组复制到缓冲中供OpenGL使用</span></span><br><span class="line">glBindBuffer(GL_ARRAY_BUFFER, VBO);</span><br><span class="line">glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 3. 设置顶点属性指针</span></span><br><span class="line">glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)<span class="number">0</span>);</span><br><span class="line">glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line"><span class="comment">// ..:: 绘制代码（渲染循环中） :: ..</span></span><br><span class="line"><span class="comment">// 4. 绘制物体</span></span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glBindVertexArray(VAO);</span><br><span class="line">someOpenGLFunctionThatDrawsOurTriangle();</span><br></pre></td></tr></table></figure>
+<p>就这么多了！前面做的一切都是等待这一刻，一个储存了我们顶点属性配置和应使用的VBO的顶点数组对象.一般当你打算绘制多个物体时，你首先要生成/配置所有的VAO（和必须的VBO及属性指针)，然后储存它们供后面使用.<strong>当我们打算绘制物体的时候就拿出相应的VAO，绑定它，绘制完物体后，再解绑VAO.</strong></p>
+<h2 id="我们一直期待的三角形"><a href="#我们一直期待的三角形" class="headerlink" title="我们一直期待的三角形"></a>我们一直期待的三角形</h2><p>要想绘制我们想要的物体，OpenGL给我们提供了glDrawArrays函数，它使用当前激活的着色器，之前定义的顶点属性配置，和VBO的顶点数据（通过VAO间接绑定）来绘制图元.<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glBindVertexArray(VAO);</span><br><span class="line">glDrawArrays(GL_TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure></p>
+<p>glDrawArrays函数第一个参数是我们打算绘制的OpenGL<strong>图元的类型</strong>.由于我们在一开始时说过，我们希望绘制的是一个三角形，这里传递<strong>GL_TRIANGLES</strong>给它。第二个参数指定了<strong>顶点数组的起始索引</strong>，我们这里填0。最后一个参数指定我们打算绘制<strong>多少个顶点</strong>，这里是3（我们只从我们的数据中渲染一个三角形，它只有3个顶点）.</p>
+<p>现在尝试编译代码，如果弹出了任何错误，回头检查你的代码。如果你编译通过了，你应该看到下面的结果：<br><img src="https://img-blog.csdnimg.cn/20190827174443305.png" alt="在这里插入图片描述"><br>三角形的源代码在<a href="https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.1.hello_triangle/hello_triangle.cpp" target="_blank" rel="noopener">这里</a>.</p>
+<h2 id="索引缓冲对象"><a href="#索引缓冲对象" class="headerlink" title="索引缓冲对象"></a>索引缓冲对象</h2><p>在渲染顶点这一话题上我们还有最后一个需要讨论的东西——<strong>索引缓冲对象</strong>(Element Buffer Object，<strong>EBO</strong>，也叫Index Buffer Object，<strong>IBO</strong>)。要解释索引缓冲对象的工作方式最好还是举个例子：假设我们不再绘制一个三角形而是绘制一个矩形.我们可以绘制两个三角形来组成一个矩形（OpenGL主要处理三角形）.这会生成下面的顶点的集合：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="comment">// 第一个三角形</span></span><br><span class="line">    <span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// 右上角</span></span><br><span class="line">    <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,  <span class="comment">// 右下角</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.0f</span>,  <span class="comment">// 左上角</span></span><br><span class="line">    <span class="comment">// 第二个三角形</span></span><br><span class="line">    <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,  <span class="comment">// 右下角</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>, <span class="comment">// 左下角</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.0f</span>   <span class="comment">// 左上角</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，有几个顶点叠加了.我们指定了右下角和左上角两次！一个矩形只有4个而不是6个顶点，这样就产生50%的额外开销.当我们有包括上千个三角形的模型之后这个问题会更糟糕，这会产生一大堆浪费.更好的解决方案是<strong>只储存不同的顶点</strong>，并<strong>设定绘制这些顶点的顺序</strong>.这样子我们只要储存4个顶点就能绘制矩形了，之后只要指定绘制的顺序就行了.如果OpenGL提供这个功能就好了，对吧？</p>
+<p>很幸运，索引缓冲对象的工作方式正是这样的.和顶点缓冲对象一样，EBO也是一个缓冲，它专门储存索引，OpenGL调用这些顶点的索引来决定该绘制哪个顶点.所谓的<strong>索引绘制</strong>(Indexed Drawing)正是我们问题的解决方案.首先，我们先要定义（不重复的）顶点，和绘制出矩形所需的索引：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="number">0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.0f</span>,   <span class="comment">// 右上角</span></span><br><span class="line">    <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,  <span class="comment">// 右下角</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>, <span class="comment">// 左下角</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">0.5f</span>, <span class="number">0.0f</span>   <span class="comment">// 左上角</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> indices[] = &#123; <span class="comment">// 注意索引从0开始! </span></span><br><span class="line">    <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="comment">// 第一个三角形</span></span><br><span class="line">    <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>  <span class="comment">// 第二个三角形</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>你可以看到，当时用索引的时候，我们只定义了4个顶点，而不是6个。下一步我们需要创建索引缓冲对象：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> EBO;</span><br><span class="line">glGenBuffers(<span class="number">1</span>, &amp;EBO);</span><br></pre></td></tr></table></figure>
+<p>与VBO类似，我们先绑定EBO然后用glBufferData把索引复制到缓冲里.同样，和VBO类似，我们会把这些函数调用放在绑定和解绑函数调用之间，只不过这次我们把缓冲的类型定义为GL_ELEMENT_ARRAY_BUFFER.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);</span><br><span class="line">glBufferData(GL_ELEMENT_ARRAY_BUFFER, <span class="keyword">sizeof</span>(indices), indices, GL_STATIC_DRAW);</span><br></pre></td></tr></table></figure>
+<p>要注意的是，我们传递了GL_ELEMENT_ARRAY_BUFFER当作缓冲目标.最后一件要做的事是用glDrawElements来替换glDrawArrays函数，来指明我们从索引缓冲渲染.使用glDrawElements时，我们会使用当前绑定的索引缓冲对象中的索引进行绘制：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);</span><br><span class="line">glDrawElements(GL_TRIANGLES, <span class="number">6</span>, GL_UNSIGNED_INT, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>第一个参数指定了我们<strong>绘制的模式</strong>，这个和glDrawArrays的一样.第二个参数是我们打算绘制<strong>顶点的个数</strong>，这里填6，也就是说我们一共需要绘制6个顶点.第三个参数是索引的类型，这里是GL_UNSIGNED_INT.最后一个参数里我们可以指定<strong>EBO中的偏移量</strong>（或者传递一个索引数组，但是这是当你不在使用索引缓冲对象的时候），但是我们会在这里填写0.</p>
+<p>glDrawElements函数从当前绑定到GL_ELEMENT_ARRAY_BUFFER目标的EBO中获取索引.这意味着我们必须在每次要用索引渲染一个物体时绑定相应的EBO，这还是有点麻烦.不过顶点数组对象同样可以保存索引缓冲对象的绑定状态.<strong>VAO绑定时正在绑定的索引缓冲对象会被保存为VAO的元素缓冲对象.绑定VAO的同时也会自动绑定EBO.</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/20190827175457694.png" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>当目标是GL_ELEMENT_ARRAY_BUFFER的时候，VAO会储存glBindBuffer的函数调用.这也意味着它也会储存解绑调用，所以<strong>确保你没有在解绑VAO之前解绑索引数组缓冲</strong>，否则它就没有这个EBO配置了.</p>
+</blockquote>
+<p>最后的初始化和绘制代码现在看起来像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ..:: 初始化代码 :: ..</span></span><br><span class="line"><span class="comment">// 1. 绑定顶点数组对象</span></span><br><span class="line">glBindVertexArray(VAO);</span><br><span class="line"><span class="comment">// 2. 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用</span></span><br><span class="line">glBindBuffer(GL_ARRAY_BUFFER, VBO);</span><br><span class="line">glBufferData(GL_ARRAY_BUFFER, <span class="keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 3. 复制我们的索引数组到一个索引缓冲中，供OpenGL使用</span></span><br><span class="line">glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);</span><br><span class="line">glBufferData(GL_ELEMENT_ARRAY_BUFFER, <span class="keyword">sizeof</span>(indices), indices, GL_STATIC_DRAW);</span><br><span class="line"><span class="comment">// 4. 设定顶点属性指针</span></span><br><span class="line">glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">3</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)<span class="number">0</span>);</span><br><span class="line">glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line"></span><br><span class="line"><span class="comment">// ..:: 绘制代码（渲染循环中） :: ..</span></span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glBindVertexArray(VAO);</span><br><span class="line">glDrawElements(GL_TRIANGLES, <span class="number">6</span>, GL_UNSIGNED_INT, <span class="number">0</span>)</span><br><span class="line">glBindVertexArray(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>运行程序会获得下面这样的图片的结果.左侧图片看应该起来很熟悉，而右侧的则是使用线框模式(Wireframe Mode)绘制的.线框矩形可以显示出矩形的确是由两个三角形组成的.</p>
+<blockquote>
+<p><strong>线框模式</strong>(Wireframe Mode)<br>要想用线框模式绘制你的三角形，你可以通过<strong>glPolygonMode</strong>(GL_FRONT_AND_BACK, GL_LINE)函数配置OpenGL如何绘制图元.<strong>第一个参数表示我们打算将其应用到所有的三角形的正面和背面，第二个参数告诉我们用线来绘制</strong>.之后的绘制调用会<strong>一直</strong>以线框模式绘制三角形，直到我们用glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)将其<strong>设置回默认模式</strong>.</p>
+</blockquote>
+<p>如果你遇到任何错误，回头检查代码，看看是否遗漏了什么.同时，你可以在<a href="https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.2.hello_triangle_indexed/hello_triangle_indexed.cpp" target="_blank" rel="noopener">这里</a>找到全部源码.</p>
+<h2 id="Clion切换运行cpp"><a href="#Clion切换运行cpp" class="headerlink" title="Clion切换运行cpp"></a>Clion切换运行cpp</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">#CMakeLists.txt  triangle</span><br><span class="line">cmake_minimum_required(VERSION <span class="number">3.14</span>)</span><br><span class="line">project(hello,triangle)</span><br><span class="line"><span class="built_in">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="built_in">set</span>(SOURCE_FILES main.cpp glad.c)</span><br><span class="line">add_executable(main $&#123;SOURCE_FILES&#125;)</span><br><span class="line">target_link_libraries(main glfw3 GL m Xrandr Xi X11 Xxf86vm pthread dl Xinerama Xcursor)</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">#CMakeLists.txt  rectangle</span><br><span class="line">cmake_minimum_required(VERSION <span class="number">3.14</span>)</span><br><span class="line">project(hello,triangle)</span><br><span class="line"><span class="built_in">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="built_in">set</span>(SOURCE_FILES rectangle.cpp glad.c)</span><br><span class="line">add_executable(rectangle $&#123;SOURCE_FILES&#125;)</span><br><span class="line">target_link_libraries(rectangle glfw3 GL m Xrandr Xi X11 Xxf86vm pthread dl Xinerama Xcursor)</span><br></pre></td></tr></table></figure>
+<h2 id="调试教程"><a href="#调试教程" class="headerlink" title="调试教程"></a>调试教程</h2><p><a href="https://learnopengl.com/In-Practice/Debugging" target="_blank" rel="noopener">调试</a>：这个教程中涉及到了很多步骤，如果你在哪卡住了，阅读一点调试的教程是非常值得的（只需要阅读到调试输出部分）</p>
+<h1 id="着色器"><a href="#着色器" class="headerlink" title="着色器"></a>着色器</h1><h2 id="GLSL"><a href="#GLSL" class="headerlink" title="GLSL"></a>GLSL</h2><p>一个典型的着色器有下面的结构：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version version_number</span></span><br><span class="line">in type in_variable_name;</span><br><span class="line">in type in_variable_name;</span><br><span class="line">out type out_variable_name;</span><br><span class="line">uniform type uniform_name;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// 处理输入并进行一些图形操作</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">// 输出处理过的结果到输出变量</span></span><br><span class="line">  out_variable_name = weird_stuff_we_processed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们特别谈论到顶点着色器的时候，每个输入变量也叫<strong>顶点属性</strong>(Vertex Attribute)。我们能声明的顶点属性是有上限的，它一般由硬件来决定。OpenGL确保至少有<strong>16个</strong>包含<strong>4分量</strong>的顶点属性可用，但是有些硬件或许允许更多的顶点属性，你可以查询<strong>GL_MAX_VERTEX_ATTRIBS</strong>来获取具体的上限：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> nrAttributes;</span><br><span class="line">glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &amp;nrAttributes);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Maximum nr of vertex attributes supported: "</span> &lt;&lt; nrAttributes &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h2><p>GLSL中的向量是一个可以包含有1、2、3或者4个分量的容器，分量的类型可以是前面默认基础类型的任意一个。它们可以是下面的形式（n代表分量的数量）：<br><img src="https://img-blog.csdnimg.cn/20190828182324740.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>一个向量的分量可以通过vec.x这种方式获取，这里x是指这个向量的第一个分量.你可以分别使用.x、.y、.z和.w来获取它们的第1、2、3、4个分量.GLSL也允许你对颜色使用<strong>rgba</strong>，或是对纹理坐标使用<strong>stpq</strong>访问相同的分量.</p>
+<h2 id="重组"><a href="#重组" class="headerlink" title="重组"></a>重组</h2><p>向量这一数据类型也允许一些有趣而灵活的分量选择方式，叫做<strong>重组</strong>(Swizzling)。重组允许这样的语法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vec2 someVec;</span><br><span class="line">vec4 differentVec = someVec.xyxx;</span><br><span class="line">vec3 anotherVec = differentVec.zyw;</span><br><span class="line">vec4 otherVec = someVec.xxxx + anotherVec.yxzy;</span><br></pre></td></tr></table></figure>
+<p>你可以使用上面4个字母任意组合来创建一个和原来向量一样长的（同类型）新向量，只要原来向量有那些分量即可；然而，你不允许在一个vec2向量中去获取.z元素(vec2只有2个维度).我们也可以把一个向量作为一个参数传给不同的向量构造函数，以减少需求参数的数量：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vec2 vect = vec2(<span class="number">0.5</span>, <span class="number">0.7</span>);</span><br><span class="line">vec4 result = vec4(vect, <span class="number">0.0</span>, <span class="number">0.0</span>);</span><br><span class="line">vec4 otherResult = vec4(result.xyz, <span class="number">1.0</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h2><p>GLSL定义了<strong>in</strong>和<strong>out</strong>关键字专门来实现数据交流和传递.每个着色器使用这两个关键字设定输入和输出，只要一个输出变量与下一个着色器阶段的输入匹配，它就会传递下去。但在顶点和片段着色器中会有点不同.</p>
+<p>顶点着色器应该接收的是一种特殊形式的输入，否则就会<strong>效率低下</strong>.顶点着色器的输入特殊在，它从顶点数据中直接接收输入.为了定义顶点数据该如何管理，我们使用<strong>location</strong>这一元数据指定输入变量，这样我们才可以在CPU上配置顶点属性.我们已经在前面的教程看过这个了，<strong>layout (location = 0)</strong>.顶点着色器需要为它的输入提供一个额外的<strong>layout标识</strong>，这样我们才能把它链接到顶点数据.</p>
+<blockquote>
+<p>你也可以忽略layout (location = 0)标识符，通过在OpenGL代码中使用<strong>glGetAttribLocation</strong>查询属性位置值(Location)，但是我更喜欢在着色器中设置它们，这样会更容易理解而且节省你（和OpenGL）的工作量.</p>
+</blockquote>
+<p>另一个例外是<strong>片段着色器</strong>，它需要一个<strong>vec4</strong>颜色输出变量，因为片段着色器需要生成一个最终输出的颜色。如果你在片段着色器没有定义输出颜色，OpenGL会把你的物体渲染为<strong>黑色（或白色）</strong>.</p>
+<p>所以，如果我们打算从一个着色器向另一个着色器发送数据，我们必须在发送方着色器中声明一个输出，在接收方着色器中声明一个类似的输入.当<strong>类型和名字都一样</strong>的时候，OpenGL就会把两个变量链接到一起，它们之间就能发送数据了（这是在链接程序对象时完成的）.为了展示这是如何工作的，我们会稍微改动一下之前教程里的那个着色器，让顶点着色器为片段着色器决定颜色.<br><strong>顶点着色器</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">layout (location = <span class="number">0</span>) in vec3 aPos; <span class="comment">// 位置变量的属性位置值为0</span></span><br><span class="line">out vec4 vertexColor; <span class="comment">// 为片段着色器指定一个颜色输出</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    gl_Position = vec4(aPos, <span class="number">1.0</span>); <span class="comment">// 注意我们如何把一个vec3作为vec4的构造器的参数</span></span><br><span class="line">    vertexColor = vec4(<span class="number">0.5</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>); <span class="comment">// 把输出变量设置为暗红色</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>片段着色器</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">out vec4 FragColor;</span><br><span class="line">in vec4 vertexColor; <span class="comment">// 从顶点着色器传来的输入变量（名称相同、类型相同）</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FragColor = vertexColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：<br><img src="https://img-blog.csdnimg.cn/20190830133215680.png" alt="在这里插入图片描述"></p>
+<h2 id="Uniform"><a href="#Uniform" class="headerlink" title="Uniform"></a>Uniform</h2><p>Uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性有些不同.首先,Uniform是<strong>全局</strong>的,在每个着色器程序中都是独一无二的,它可以被着色器程序的任意着色器在任意阶段访问.其次,无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置或更新.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">out vec4 FragColor;</span><br><span class="line">uniform vec4 ourColor; <span class="comment">// 在OpenGL程序代码中设定这个变量</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FragColor = ourColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你声明了一个uniform却在GLSL代码中没用过，编译器会<strong>静默移除</strong>这个变量，导致最后编译出的版本中并不会包含它，这可能导致几个非常麻烦的错误，记住这点！</p>
+</blockquote>
+<p>下面这段程序可以让颜色随着时间变化而改变:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> timeValue = glfwGetTime();</span><br><span class="line"><span class="keyword">float</span> greenValue = (<span class="built_in">sin</span>(timeValue) / <span class="number">2.0f</span>) + <span class="number">0.5f</span>;</span><br><span class="line"><span class="keyword">int</span> vertexColorLocation = glGetUniformLocation(shaderProgram, <span class="string">"ourColor"</span>);</span><br><span class="line">glUseProgram(shaderProgram);</span><br><span class="line">glUniform4f(vertexColorLocation, <span class="number">0.0f</span>, greenValue, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br></pre></td></tr></table></figure>
+<p>首先我们通过<strong>glfwGetTime()</strong>获取运行的秒数.然后我们使用sin函数让颜色在0.0到1.0之间改变，最后将结果储存到<strong>greenValue</strong>里.</p>
+<p>接着，我们用<strong>glGetUniformLocation</strong>查询uniform ourColor的位置值.-1代表没找到.最后，我们可以通过<strong>glUniform4f</strong>函数设置uniform值.注意，查询uniform地址不要求你之前使用过着色器程序，但是更新一个uniform之前你必须先使用程序（<strong>调用glUseProgram</strong>)，因为它是在当前激活的着色器程序中设置uniform的.</p>
+<blockquote>
+<p>因为OpenGL在其核心是一个C库，所以它不支持类型重载，在函数参数不同的时候就要为其定义新的函数；glUniform是一个典型例子.这个函数有一个特定的后缀，标识设定的uniform的类型。可能的后缀有：<br><img src="https://img-blog.csdnimg.cn/20190830134554257.png" alt="在这里插入图片描述"><br>每当你打算配置一个OpenGL的选项时就可以简单地根据这些规则选择适合你的数据类型的重载函数。在我们的例子里，我们希望分别设定uniform的4个float值，所以我们通过glUniform4f传递我们的数据(注意，我们也可以使用fv版本).</p>
+</blockquote>
+<p>下面的程序你会看到你的三角形逐渐由绿变黑再变回绿色.<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 输入</span></span><br><span class="line">    processInput(window);</span><br><span class="line">    <span class="comment">// 渲染</span></span><br><span class="line">    <span class="comment">// 清除颜色缓冲</span></span><br><span class="line">    glClearColor(<span class="number">0.2f</span>, <span class="number">0.3f</span>, <span class="number">0.3f</span>, <span class="number">1.0f</span>);</span><br><span class="line">    glClear(GL_COLOR_BUFFER_BIT);</span><br><span class="line">    <span class="comment">// 记得激活着色器</span></span><br><span class="line">    glUseProgram(shaderProgram);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新uniform颜色</span></span><br><span class="line">    <span class="keyword">float</span> timeValue = glfwGetTime();</span><br><span class="line">    <span class="keyword">float</span> greenValue = <span class="built_in">sin</span>(timeValue) / <span class="number">2.0f</span> + <span class="number">0.5f</span>;</span><br><span class="line">    <span class="keyword">int</span> vertexColorLocation = glGetUniformLocation(shaderProgram, <span class="string">"ourColor"</span>);</span><br><span class="line">    glUniform4f(vertexColorLocation, <span class="number">0.0f</span>, greenValue, <span class="number">0.0f</span>, <span class="number">1.0f</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绘制三角形</span></span><br><span class="line">    glBindVertexArray(VAO);</span><br><span class="line">    glDrawArrays(GL_TRIANGLES, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换缓冲并查询IO事件</span></span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">    glfwPollEvents();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>完整代码点击<a href="https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/3.1.shaders_uniform/shaders_uniform.cpp" target="_blank" rel="noopener">此处</a></p>
+<h2 id="更多属性！"><a href="#更多属性！" class="headerlink" title="更多属性！"></a>更多属性！</h2><p>我们将把颜色数据添加为3个float值至vertices数组。我们将把三角形的三个角分别指定为红色、绿色和蓝色：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="comment">// 位置              // 颜色</span></span><br><span class="line">     <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,  <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>,   <span class="comment">// 右下</span></span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,  <span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>,   <span class="comment">// 左下</span></span><br><span class="line">     <span class="number">0.0f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span>,  <span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span>    <span class="comment">// 顶部</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>由于现在有更多的数据要发送到顶点着色器，我们有必要去调整一下顶点着色器，使它能够接收颜色值作为一个顶点属性输入。需要注意的是我们用layout标识符来把aColor属性的位置值设置为1：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">layout (location = <span class="number">0</span>) in vec3 aPos;   <span class="comment">// 位置变量的属性位置值为 0 </span></span><br><span class="line">layout (location = <span class="number">1</span>) in vec3 aColor; <span class="comment">// 颜色变量的属性位置值为 1</span></span><br><span class="line">out vec3 ourColor; <span class="comment">// 向片段着色器输出一个颜色</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    gl_Position = vec4(aPos, <span class="number">1.0</span>);</span><br><span class="line">    ourColor = aColor; <span class="comment">// 将ourColor设置为我们从顶点数据那里得到的输入颜色</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们不再使用uniform来传递片段的颜色了，现在使用ourColor输出变量，我们必须再修改一下片段着色器：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#version 330 core</span></span><br><span class="line">out vec4 FragColor;  </span><br><span class="line">in vec3 ourColor;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FragColor = vec4(ourColor, <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为我们添加了另一个顶点属性，并且更新了VBO的内存，我们就必须重新配置顶点属性指针。更新后的VBO内存中的数据现在看起来像这样：<br><img src="https://img-blog.csdnimg.cn/20190830141105554.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>知道了现在使用的布局，我们就可以使用glVertexAttribPointer函数更新顶点格式:<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 位置属性</span></span><br><span class="line">glVertexAttribPointer(<span class="number">0</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">6</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)<span class="number">0</span>);</span><br><span class="line">glEnableVertexAttribArray(<span class="number">0</span>);</span><br><span class="line"><span class="comment">// 颜色属性</span></span><br><span class="line">glVertexAttribPointer(<span class="number">1</span>, <span class="number">3</span>, GL_FLOAT, GL_FALSE, <span class="number">6</span> * <span class="keyword">sizeof</span>(<span class="keyword">float</span>), (<span class="keyword">void</span>*)(<span class="number">3</span>* <span class="keyword">sizeof</span>(<span class="keyword">float</span>)));</span><br><span class="line">glEnableVertexAttribArray(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>由于我们现在有了两个顶点属性，我们不得不重新计算步长值。为获得数据队列中下一个属性值（比如位置向量的下个x分量）我们必须向右移动6个float，其中3个是位置值，另外3个是颜色值.这使我们的步长值为6乘以float的字节数（=24字节）.</p>
+<p>同样，这次我们必须指定一个偏移量。对于每个顶点来说，位置顶点属性在前，所以它的偏移量是0。颜色属性紧随位置数据之后，所以偏移量就是3 * sizeof(float)，用字节来计算就是12字节.</p>
+<p><img src="https://img-blog.csdnimg.cn/20190830194334231.png" alt="在这里插入图片描述"></p>
+<p>我们只设置了3个颜色,但却得到了而一个调色板,这是在片段着色器中进行的所谓<strong>片段插值</strong>(Fragment Interpolation)的结果.当渲染一个三角形时，光栅化(Rasterization)阶段通常会造成比原指定顶点更多的片段.光栅会根据每个片段在三角形形状上所处相对位置决定这些片段的位置.基于这些位置，它会<strong>插值</strong>(Interpolate)所有片段着色器的输入变量.比如说，我们有一个线段，上面的端点是绿色的，下面的端点是蓝色的。如果一个片段着色器在线段的70%的位置运行，它的颜色输入属性就会是一个绿色和蓝色的线性结合；更精确地说就是30%蓝 + 70%绿.</p>
+<h1 id="纹理"><a href="#纹理" class="headerlink" title="纹理"></a>纹理</h1><p>为了能够把纹理映射(Map)到三角形上，我们需要指定三角形的每个顶点各自对应纹理的哪个部分.这样每个顶点就会关联着一个纹理坐标(Texture Coordinate)，用来标明该从纹理图像的哪个部分采样（译注：采集片段颜色）.之后在图形的其它片段上进行片段插值(Fragment Interpolation).</p>
+<p>纹理坐标在x和y轴上，范围为0到1之间（注意我们使用的是2D纹理图像）.使用纹理坐标获取纹理颜色叫做<strong>采样</strong>(Sampling).纹理坐标起始于<strong>(0, 0)</strong>，也就是纹理图片的<strong>左下角</strong>，终始于<strong>(1, 1)</strong>，即纹理图片的<strong>右上角</strong>.下面的图片展示了我们是如何把纹理坐标映射到三角形上的.<br><img src="https://img-blog.csdnimg.cn/20190830200925382.png" alt="在这里插入图片描述"><br>纹理坐标看起来就像这样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">float texCoords[] = &#123;</span><br><span class="line">    0.0f, 0.0f, // 左下角</span><br><span class="line">    1.0f, 0.0f, // 右下角</span><br><span class="line">    0.5f, 1.0f // 上中</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="纹理环绕方式"><a href="#纹理环绕方式" class="headerlink" title="纹理环绕方式"></a>纹理环绕方式</h2><p>纹理坐标的范围通常是从(0, 0)到(1, 1)，那如果我们把纹理坐标设置在范围之外会发生什么？OpenGL默认的行为是重复这个纹理图像（我们基本上忽略浮点纹理坐标的整数部分），但OpenGL提供了更多的选择：<br><img src="https://img-blog.csdnimg.cn/20190830205734636.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190830205823102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0t1cm9oYV9ZdWtpa28=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>前面提到的每个选项都可以使用glTexParameter*函数对单独的一个坐标轴设置（s、t（如果是使用3D纹理那么还有一个r）它们和x、y、z是等价的）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);</span><br><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);</span><br></pre></td></tr></table></figure>
+<p>第一个参数指定了纹理目标；我们使用的是2D纹理，因此纹理目标是GL_TEXTURE_2D.第二个参数需要我们指定设置的选项与应用的纹理轴.我们打算配置的是WRAP选项，并且指定S和T轴.最后一个参数需要我们传递一个环绕方式(Wrapping)，在这个例子中OpenGL会给当前激活的纹理设定纹理环绕方式为GL_MIRRORED_REPEAT.</p>
+<p>如果我们选择GL_CLAMP_TO_BORDER选项，我们还需要指定一个边缘的颜色.这需要使用<strong>glTexParameter</strong>函数的fv后缀形式，用GL_TEXTURE_BORDER_COLOR作为它的选项，并且传递一个float数组作为边缘的颜色值：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> borderColor[] = &#123; <span class="number">1.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>, <span class="number">1.0f</span> &#125;;</span><br><span class="line">glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);</span><br></pre></td></tr></table></figure>
+<h2 id="纹理过滤"><a href="#纹理过滤" class="headerlink" title="纹理过滤"></a>纹理过滤</h2><p>纹理坐标<strong>不依赖于分辨率</strong>(Resolution)，它可以是任意浮点值，所以OpenGL需要知道怎样将纹理像素(Texture Pixel，也叫Texel，译注1)映射到纹理坐标.当你有一个很大的物体但是纹理的分辨率很低的时候这就变得很重要了.你可能已经猜到了，OpenGL也有对于纹理过滤(Texture Filtering)的选项.纹理过滤有很多个选项，但是现在我们只讨论最重要的两种：GL_NEAREST和GL_LINEAR.</p>
+<p><strong>GL_NEAREST</strong>（也叫<strong>邻近过滤</strong>，Nearest Neighbor Filtering）是OpenGL默认的纹理过滤方式.当设置为GL_NEAREST的时候，OpenGL会选择中心点最接近纹理坐标的那个像素.下图中你可以看到四个像素，加号代表纹理坐标.左上角那个纹理像素的中心距离纹理坐标最近，所以它会被选择为样本颜色：<br><img src="https://img-blog.csdnimg.cn/20190830210607755.png" alt="在这里插入图片描述"><br><strong>GL_LINEAR</strong>（也叫<strong>线性过滤</strong>，(Bi)linear Filtering）它会基于纹理坐标附近的纹理像素，计算出一个插值，近似出这些纹理像素之间的颜色.一个纹理像素的中心距离纹理坐标越近，那么这个纹理像素的颜色对最终的样本颜色的贡献越大.下图中你可以看到返回的颜色是邻近像素的<strong>混合色</strong>：<br><img src="https://img-blog.csdnimg.cn/20190830210658835.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190830210729108.png" alt="在这里插入图片描述"><br>GL_NEAREST产生了颗粒状的图案，我们能够清晰看到组成纹理的像素，而GL_LINEAR能够产生更平滑的图案，很难看出单个的纹理像素.GL_LINEAR可以产生更真实的输出，但有些开发者更喜欢8-bit风格，所以他们会用GL_NEAREST选项.</p>
+<p>当进行放大(Magnify)和缩小(Minify)操作的时候可以设置纹理过滤的选项，比如你可以在纹理被缩小的时候使用邻近过滤，被放大时使用线性过滤。我们需要使用glTexParameter*函数为放大和缩小指定过滤方式.这段代码看起来会和纹理环绕方式的设置很相似：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);</span><br><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</span><br></pre></td></tr></table></figure>
+<h2 id="多级渐远纹理"><a href="#多级渐远纹理" class="headerlink" title="多级渐远纹理"></a>多级渐远纹理</h2><p>想象一下，假设我们有一个包含着上千物体的大房间，每个物体上都有纹理。有些物体会很远，但其纹理会拥有与近处物体同样高的分辨率.由于远处的物体可能只产生很少的片段，OpenGL从高分辨率纹理中为这些片段获取正确的颜色值就很困难，因为它需要对一个跨过纹理很大部分的片段只拾取一个纹理颜色.在小物体上这会产生不真实的感觉，更不用说对它们使用高分辨率纹理浪费内存的问题了.</p>
+<p>OpenGL使用一种叫做<strong>多级渐远纹理</strong>(Mipmap)的概念来解决这个问题，它简单来说就是一系列的纹理图像，<strong>后一个纹理图像是前一个的二分之一</strong>.多级渐远纹理背后的理念很简单：<strong>距观察者的距离超过一定的阈值，OpenGL会使用不同的多级渐远纹理，即最适合物体的距离的那个</strong>.由于距离远，解析度不高也不会被用户注意到.同时，多级渐远纹理另一加分之处是它的<strong>性能非常好</strong>.让我们看一下多级渐远纹理是什么样子的：<br><img src="https://img-blog.csdnimg.cn/20190830211337124.png" alt="在这里插入图片描述"><br>手工为每个纹理图像创建一系列多级渐远纹理很麻烦，幸好OpenGL有一个<strong>glGenerateMipmaps</strong>函数，在创建完一个纹理后调用它OpenGL就会承担接下来的所有工作了.</p>
+<p>在渲染中切换多级渐远纹理级别(Level)时，OpenGL在两个不同级别的多级渐远纹理层之间会产生不真实的生硬边界.就像普通的纹理过滤一样，切换多级渐远纹理级别时你也可以在两个不同多级渐远纹理级别之间使用NEAREST和LINEAR过滤.为了指定不同多级渐远纹理级别之间的过滤方式，你可以使用下面四个选项中的一个代替原有的过滤方式：<br><img src="https://img-blog.csdnimg.cn/20190830211930533.png" alt="在这里插入图片描述"><br>就像纹理过滤一样，我们可以使用glTexParameteri将过滤方式设置为前面四种提到的方法之一：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);</span><br><span class="line">glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);</span><br></pre></td></tr></table></figure>
+<p>一个常见的错误是，<strong>将放大过滤的选项设置为多级渐远纹理过滤选项之一</strong>.这样没有任何效果，因为多级渐远纹理主要是使用在<strong>纹理被缩小</strong>的情况下的：纹理放大不会使用多级渐远纹理，为放大过滤设置多级渐远纹理的选项会产生一个<strong>GL_INVALID_ENUM</strong>错误代码.</p>
+<h2 id="加载与创建纹理"><a href="#加载与创建纹理" class="headerlink" title="加载与创建纹理"></a>加载与创建纹理</h2><p>使用一个支持多种流行格式的图像加载库来为我们解决图像加载的问题,比如说我们要用的stb_image.h库.</p>
+<h3 id="stb-image-h"><a href="#stb-image-h" class="headerlink" title="stb_image.h"></a>stb_image.h</h3><p>stb_image.h可以在<a href="https://github.com/nothings/stb/blob/master/stb_image.h" target="_blank" rel="noopener">这里</a>下载.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> STB_IMAGE_IMPLEMENTATION</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stb_image.h"</span></span></span><br></pre></td></tr></table></figure>
+<p>通过定义STB_IMAGE_IMPLEMENTATION，预处理器会修改头文件，让其只包含相关的函数定义源码，等于是将这个头文件变为一个 .cpp 文件了.现在只需要在你的程序中包含stb_image.h并编译就可以了.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> width, height, nrChannels;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> *data = stbi_load(<span class="string">"container.jpg"</span>, &amp;width, &amp;height, &amp;nrChannels, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>这个函数首先接受一个图像文件的位置作为输入。接下来它需要三个int作为它的第二、第三和第四个参数，stb_image.h将会用图像的宽度、高度和颜色通道的个数填充这三个变量。我们之后生成纹理的时候会用到的图像的宽度和高度的.</p>
+<h2 id="生成纹理"><a href="#生成纹理" class="headerlink" title="生成纹理"></a>生成纹理</h2><p>和之前生成的OpenGL对象一样，纹理也是使用ID引用的.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> texture;</span><br><span class="line">glGenTextures(<span class="number">1</span>, &amp;texture);</span><br></pre></td></tr></table></figure>
+<p>glGenTextures函数首先需要输入生成纹理的数量，然后把它们储存在第二个参数的unsigned int数组中（我们的例子中只是单独的一个unsigned int），就像其他对象一样，我们需要绑定它，让之后任何的纹理指令都可以配置当前绑定的纹理：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glBindTexture(GL_TEXTURE_2D, texture);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数指定了纹理目标(Target).设置为GL_TEXTURE_2D意味着会生成与当前绑定的纹理对象在同一个目标上的纹理（任何绑定到GL_TEXTURE_1D和GL_TEXTURE_3D的纹理不会受到影响）.</li>
+<li>第二个参数为纹理指定多级渐远纹理的级别，如果你希望单独手动设置每个多级渐远纹理的级别的话.这里我们填0，也就是基本级别.</li>
+<li>第三个参数告诉OpenGL我们希望把纹理储存为何种格式.我们的图像只有RGB值，因此我们也把纹理储存为RGB值.</li>
+<li>第四个和第五个参数设置最终的纹理的宽度和高度.我们之前加载图像的时候储存了它们，所以我们使用对应的变量.</li>
+<li>下个参数应该总是被设为0（历史遗留的问题）.</li>
+<li>第七第八个参数定义了源图的格式和数据类型。我们使用RGB值加载这个图像，并把它们储存为char(byte)数组，我们将会传入对应值.</li>
+<li>最后一个参数是真正的图像数据.</li>
+</ul>
+<p>当调用glTexImage2D时，当前绑定的纹理对象就会被附加上纹理图像.然而，目前只有基本级别(Base-level)的纹理图像被加载了，如果要使用多级渐远纹理，我们必须手动设置所有不同的图像（不断递增第二个参数）.或者，直接在生成纹理之后调用glGenerateMipmap.这会为当前绑定的纹理自动生成所有需要的多级渐远纹理.</p>
+<p>生成了纹理和相应的多级渐远纹理后，释放图像的内存是一个很好的习惯.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">stbi_image_free(data);</span><br></pre></td></tr></table></figure>
+<h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><h3 id="三维旋转公式"><a href="#三维旋转公式" class="headerlink" title="三维旋转公式"></a>三维旋转公式</h3><p><img src="https://img-blog.csdnimg.cn/20190922130210780.png" alt="在这里插入图片描述"><br>利用旋转矩阵我们可以把任意位置向量沿一个单位旋转轴进行旋转。也可以将多个矩阵复合，比如先沿着x轴旋转再沿着y轴旋转.但是这会很快导致一个问题——<strong>万向节死锁</strong>（Gimbal Lock）.<br>这样的一个（超级麻烦的）矩阵是存在的，见下面这个公式，其中(Rx,Ry,Rz)代表任意旋转轴：<br><img src="https://img-blog.csdnimg.cn/20190922130501360.png" alt="在这里插入图片描述">即使这样一个矩阵也不能完全解决万向节死锁问题（尽管会极大地避免）.避免万向节死锁的真正解决方案是使用<strong>四元数</strong>(Quaternion)，它不仅更安全，而且计算会更有效率。四元数可能会在后面的教程中讨论.<br>相关资料:<br><a href="https://krasjet.github.io/quaternion/quaternion.pdf" target="_blank" rel="noopener">四元数</a><br><a href="https://krasjet.github.io/quaternion/bonus_gimbal_lock.pdf" target="_blank" rel="noopener">万向节死锁</a><br><a href="https://www.cnblogs.com/driftingclouds/p/6540222.html" target="_blank" rel="noopener">万向节死锁的理解</a></p>
+<h3 id="矩阵的组合"><a href="#矩阵的组合" class="headerlink" title="矩阵的组合"></a>矩阵的组合</h3><p>假设我们有一个顶点(x, y, z)，我们希望将其缩放2倍，然后位移(1, 2, 3)个单位.我们需要一个位移和缩放矩阵来完成这些变换.结果的变换矩阵看起来像这样：<br><img src="https://img-blog.csdnimg.cn/20190922131859221.png" alt="在这里插入图片描述"></p>
+<h2 id="坐标系统"><a href="#坐标系统" class="headerlink" title="坐标系统"></a>坐标系统</h2><h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><p>如果你曾经体验过实际生活给你带来的景象，你就会注意到离你越远的东西看起来更小.这个奇怪的效果称之为<strong>透视</strong>(Perspective).透视的效果在我们看一条无限长的高速公路或铁路时尤其明显，正如下面图片显示的那样：<br><img src="https://img-blog.csdnimg.cn/20190922171443384.png" alt="在这里插入图片描述"><br>正如你看到的那样，由于透视，这两条线在很远的地方看起来会相交.这正是透视投影想要模仿的效果，它是使用透视投影矩阵来完成的.这个投影矩阵将给定的平截头体范围映射到裁剪空间，除此之外还修改了每个顶点坐标的w值，从而使得离观察者越远的顶点坐标w分量越大.被变换到裁剪空间的坐标都会在-w到w的范围之间（任何大于这个范围的坐标都会被裁剪掉）.OpenGL要求所有可见的坐标都落在-1.0到1.0范围内，作为顶点着色器最后的输出，因此，一旦坐标在裁剪空间内之后，透视除法就会被应用到裁剪空间坐标上：<br><img src="https://img-blog.csdnimg.cn/20190922171615423.png" alt="在这里插入图片描述"><br>顶点坐标的每个分量都会除以它的w分量，距离观察者越远顶点坐标就会越小.这是也是w分量非常重要的另一个原因，它能够帮助我们进行透视投影。最后的结果坐标就是处于标准化设备空间中的.如果你对正射投影矩阵和透视投影矩阵是如何计算的很感兴趣（且不会对数学感到恐惧的话）我推荐这篇由Songho写的<a href="http://www.songho.ca/opengl/gl_projectionmatrix.html" target="_blank" rel="noopener">文章</a>.<br>在GLM中可以这样创建一个透视投影矩阵：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::mat4 proj = glm::perspective(glm::radians(<span class="number">45.0f</span>), (<span class="keyword">float</span>)width/(<span class="keyword">float</span>)height, <span class="number">0.1f</span>, <span class="number">100.0f</span>);</span><br></pre></td></tr></table></figure>
+<p>同样，glm::perspective所做的其实就是创建了一个定义了可视空间的大平截头体，任何在这个平截头体以外的东西最后都不会出现在裁剪空间体积内，并且将会受到裁剪.一个透视平截头体可以被看作一个不均匀形状的箱子，在这个箱子内部的每个坐标都会被映射到裁剪空间上的一个点.下面是一张透视平截头体的图片：<br><img src="https://img-blog.csdnimg.cn/20190922171756674.png" alt="在这里插入图片描述"><br>它的第一个参数定义了fov的值，它表示的是视野(Field of View)，并且设置了观察空间的大小.如果想要一个真实的观察效果，它的值通常设置为45.0f，但想要一个末日风格的结果你可以将其设置一个更大的值.第二个参数设置了宽高比，由视口的宽除以高所得.第三和第四个参数设置了平截头体的近和远平面。我们通常设置近距离为0.1f，而远距离设为100.0f.所有在近平面和远平面内且处于平截头体内的顶点都会被渲染.</p>
+<blockquote>
+<p>当你把透视矩阵的 near 值设置太大时（如10.0f），OpenGL会将靠近摄像机的坐标（在0.0f和10.0f之间）都裁剪掉，这会导致一个你在游戏中很熟悉的视觉效果：在太过靠近一个物体的时候你的视线会直接穿过去.</p>
+</blockquote>
+<p>当使用正射投影时，每一个顶点坐标都会直接映射到裁剪空间中而不经过任何精细的透视除法（它仍然会进行透视除法，只是w分量没有被改变（它保持为1），因此没有起作用）.因为正射投影没有使用透视，远处的物体不会显得更小，所以产生奇怪的视觉效果.由于这个原因，正射投影主要用于二维渲染以及一些建筑或工程的程序，在这些场景中我们更希望顶点不会被透视所干扰.某些如 Blender 等进行三维建模的软件有时在建模时也会使用正射投影，因为它在各个维度下都更准确地描绘了每个物体。下面你能够看到在Blender里面使用两种投影方式的对比：<br><img src="https://img-blog.csdnimg.cn/20190922172024134.png" alt="在这里插入图片描述"><br>你可以看到，使用<strong>透视投影</strong>的话，<strong>远处</strong>的顶点看起来<strong>比较小</strong>，而在<strong>正射投影</strong>中每个顶点距离观察者的距离都是<strong>一样</strong>的.</p>
+<h3 id="Z缓冲-深度缓冲"><a href="#Z缓冲-深度缓冲" class="headerlink" title="Z缓冲(深度缓冲)"></a>Z缓冲(深度缓冲)</h3><p>OpenGL存储深度信息在一个叫做<strong>Z缓冲</strong>(Z-buffer)的缓冲中，它允许OpenGL决定何时覆盖一个像素而何时不覆盖.通过使用Z缓冲，我们可以配置OpenGL来进行深度测试.</p>
+<p>GLFW会自动为你生成这样一个缓冲（就像它也有一个颜色缓冲来存储输出图像的颜色）.深度值存储在每个片段里面（作为片段的z值），当片段想要输出它的颜色时，OpenGL会将它的深度值和z缓冲进行比较，如果当前的片段在其它片段之后，它将会被丢弃，否则将会覆盖.这个过程称为深度测试(Depth Testing)，它是由OpenGL自动完成的.</p>
+<p>glEnable和glDisable函数允许我们启用或禁用某个OpenGL功能.这个功能会一直保持启用/禁用状态，直到另一个调用来禁用/启用它.现在我们想启用深度测试，需要开启GL_DEPTH_TEST：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glEnable(GL_DEPTH_TEST);</span><br></pre></td></tr></table></figure>
+<p>因为我们使用了深度测试，我们也想要在每次渲染迭代之前清除深度缓冲（否则前一帧的深度信息仍然保存在缓冲中）.就像清除颜色缓冲一样，我们可以通过在glClear函数中指定DEPTH_BUFFER_BIT位来清除深度缓冲：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);</span><br></pre></td></tr></table></figure>
+<h2 id="摄像机"><a href="#摄像机" class="headerlink" title="摄像机"></a>摄像机</h2><p><img src="https://img-blog.csdnimg.cn/20190922181514792.png" alt="在这里插入图片描述"></p>
+<h3 id="摄像机方向"><a href="#摄像机方向" class="headerlink" title="摄像机方向"></a>摄像机方向</h3><p>摄像机的方向指的是摄像机指向哪个方向.现在我们让摄像机指向场景原点：(0, 0, 0).用场景原点向量减去摄像机位置向量的结果就是摄像机的指向向量.由于我们知道摄像机指向z轴负方向，但我们希望方向向量(Direction Vector)指向摄像机的z轴正方向.如果我们交换相减的顺序，我们就会获得一个指向摄像机正z轴方向的向量：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::vec3 cameraTarget = glm::vec3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>);</span><br><span class="line">glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方向向量(Direction Vector)并不是最好的名字，因为它实际上指向从它到目标向量的<strong>相反方向</strong>（译注：注意看前面的那个图，蓝色的方向向量大概指向z轴的正方向，与摄像机实际指向的方向是正好相反的）.</p>
+</blockquote>
+<h3 id="右轴"><a href="#右轴" class="headerlink" title="右轴"></a>右轴</h3><p>我们需要的另一个向量是一个<strong>右向量</strong>(Right Vector)，它代表摄像机空间的<strong>x轴的正方向</strong>.为获取右向量我们需要先使用一个小技巧：先定义一个<strong>上向量</strong>(Up Vector).接下来把上向量和第二步得到的方向向量进行叉乘.两个向量<strong>叉乘</strong>的结果会同时垂直于两向量，因此我们会得到指向x轴正方向的那个向量（如果我们交换两个向量叉乘的顺序就会得到相反的指向x轴负方向的向量）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::vec3 up = glm::vec3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>); </span><br><span class="line">glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));</span><br></pre></td></tr></table></figure>
+<h3 id="上轴"><a href="#上轴" class="headerlink" title="上轴"></a>上轴</h3><p>右向量和方向向量进行叉乘得到y轴正方形,即上轴.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);</span><br></pre></td></tr></table></figure>
+<p>对于想学到更多数学原理的读者，提示一下，在线性代数中这个处理叫做<strong>格拉姆—施密特正交化</strong>(Gram-Schmidt Process).使用这些摄像机向量我们就可以创建一个<strong>LookAt矩阵</strong>了，它在创建摄像机的时候非常有用.</p>
+<h3 id="Look-At"><a href="#Look-At" class="headerlink" title="Look At"></a>Look At</h3><p>使用矩阵的好处之一是如果你使用3个相互垂直（或非线性）的轴定义了一个<strong>坐标空间</strong>，你可以用这3个轴外加一个<strong>平移向量</strong>来创建一个矩阵，并且你可以用这个矩阵乘以任何向量来将其变换到那个坐标空间.这正是<strong>LookAt矩阵</strong>所做的，现在我们有了3个相互垂直的轴和一个定义摄像机空间的位置坐标，我们可以创建我们自己的LookAt矩阵了：<br><img src="https://img-blog.csdnimg.cn/2019092218322723.png" alt="在这里插入图片描述"><br>其中R是右向量，U是上向量，D是方向向量P是摄像机位置向量.注意，位置向量是相反的，因为我们最终希望把世界平移到与我们自身移动的相反方向.把这个LookAt矩阵作为观察矩阵可以很高效地把所有世界坐标变换到刚刚定义的观察空间.LookAt矩阵就像它的名字表达的那样：它会创建一个看着(Look at)给定目标的观察矩阵.</p>
+<p>幸运的是，GLM已经提供了这些支持.我们要做的只是定义一个摄像机位置，一个目标位置和一个表示世界空间中的上向量的向量（我们计算右向量使用的那个上向量）.接着GLM就会创建一个LookAt矩阵，我们可以把它当作我们的观察矩阵：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::mat4 view;</span><br><span class="line">view = glm::lookAt(glm::vec3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">3.0f</span>), </span><br><span class="line">           glm::vec3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">0.0f</span>), </span><br><span class="line">           glm::vec3(<span class="number">0.0f</span>, <span class="number">1.0f</span>, <span class="number">0.0f</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="自由移动"><a href="#自由移动" class="headerlink" title="自由移动"></a>自由移动</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::vec3 cameraPos   = glm::vec3(<span class="number">0.0f</span>, <span class="number">0.0f</span>,  <span class="number">3.0f</span>);</span><br><span class="line">glm::vec3 cameraFront = glm::vec3(<span class="number">0.0f</span>, <span class="number">0.0f</span>, <span class="number">-1.0f</span>);</span><br><span class="line">glm::vec3 cameraUp    = glm::vec3(<span class="number">0.0f</span>, <span class="number">1.0f</span>,  <span class="number">0.0f</span>);</span><br><span class="line">view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);</span><br></pre></td></tr></table></figure>
+<p>我们首先将摄像机位置设置为之前定义的<strong>cameraPos</strong>.方向是当前的位置<strong>加上我们刚刚定义的方向向量</strong>.这样能保证<strong>无论我们怎么移动，摄像机都会注视着目标方向</strong>.让我们摆弄一下这些向量，在按下某些按钮时更新cameraPos向量.</p>
+<p>我们已经为GLFW的键盘输入定义过一个processInput函数了，我们来新添加几个需要检查的按键命令：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processInput</span><span class="params">(GLFWwindow *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">float</span> cameraSpeed = <span class="number">0.05f</span>; <span class="comment">// adjust accordingly</span></span><br><span class="line">    <span class="keyword">if</span> (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)</span><br><span class="line">        cameraPos += cameraSpeed * cameraFront;</span><br><span class="line">    <span class="keyword">if</span> (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)</span><br><span class="line">        cameraPos -= cameraSpeed * cameraFront;</span><br><span class="line">    <span class="keyword">if</span> (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)</span><br><span class="line">        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;</span><br><span class="line">    <span class="keyword">if</span> (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)</span><br><span class="line">        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们按下WASD键的任意一个，摄像机的位置都会相应更新。如果我们希望向前或向后移动，我们就把位置向量加上或减去方向向量.如果我们希望向左右移动，我们使用叉乘来创建一个<strong>右向量</strong>(Right Vector)，并沿着它相应移动就可以了.这样就创建了使用摄像机时熟悉的横移(Strafe)效果.</p>
+<blockquote>
+<p>注意，我们对右向量进行了标准化.如果我们没对这个向量进行标准化，最后的叉乘结果会根据cameraFront变量返回大小不同的向量.如果我们不对向量进行标准化，我们就得根据摄像机的朝向不同加速或减速移动了，但如果进行了标准化移动就是匀速的.</p>
+</blockquote>
+<h3 id="移动速度"><a href="#移动速度" class="headerlink" title="移动速度"></a>移动速度</h3><p>目前我们的移动速度是个常量.理论上没什么问题，但是实际情况下根据处理器的能力不同，有些人可能会比其他人每秒绘制更多帧，也就是以<strong>更高的频率调用processInput函数</strong>.结果就是，根据配置的不同，有些人可能移动很快，而有些人会移动很慢.当你发布你的程序的时候，你必须确保它在所有硬件上移动速度都一样.</p>
+<p>图形程序和游戏通常会跟踪一个<strong>时间差(Deltatime)</strong>变量，它储存了渲染<strong>上一帧</strong>所用的时间.我们把所有速度都去乘以deltaTime值.结果就是，如果我们的deltaTime很大，就意味着上一帧的渲染花费了更多时间，所以这一帧的速度需要变得<strong>更高</strong>来<strong>平衡</strong>渲染所花去的时间.使用这种方法时，无论你的电脑快还是慢，摄像机的速度都会相应平衡，这样每个用户的体验就都一样了.</p>
+<h3 id="视角移动"><a href="#视角移动" class="headerlink" title="视角移动"></a>视角移动</h3><p>为了能够改变视角，我们需要根据鼠标的输入改变cameraFront向量.在此之前,我们需要学习相关的数学知识.</p>
+<h3 id="欧拉角"><a href="#欧拉角" class="headerlink" title="欧拉角"></a>欧拉角</h3><p>欧拉角(Euler Angle)是可以表示3D空间中任何旋转的3个值，由莱昂哈德·欧拉(Leonhard Euler)在18世纪提出.一共有3种欧拉角：<strong>俯仰角</strong>(Pitch)、<strong>偏航角</strong>(Yaw)和<strong>滚转角</strong>(Roll)，下面的图片展示了它们的含义：<br><img src="https://img-blog.csdnimg.cn/20190922185106255.png" alt="在这里插入图片描述"><br>对于我们的摄像机系统来说，我们只关心俯仰角和偏航角，所以我们不会讨论滚转角.给定一个俯仰角和偏航角，我们可以把它们转换为一个代表新的方向向量的3D向量.俯仰角和偏航角转换为<strong>方向向量</strong>的处理需要一些三角学知识，我们先从最基本的情况开始：<br><img src="https://img-blog.csdnimg.cn/20190922185215340.png" alt="在这里插入图片描述"><br>如果我们把斜边边长定义为1，我们就能知道邻边的长度是cos x/h=cos x/1=cos x，它的对边是sin y/h=sin y/1=sin y.这样我们获得了能够得到x和y方向长度的通用公式，它们取决于所给的角度.我们使用它来计算方向向量的分量：<br><img src="https://img-blog.csdnimg.cn/20190922185242344.png" alt="在这里插入图片描述"><br>这个三角形看起来和前面的三角形很像，所以如果我们想象自己在xz平面上，看向y轴，我们可以基于第一个三角形计算来计算它的长度/y方向的强度(Strength)（我们往上或往下看多少）.从图中我们可以看到对于一个给定俯仰角的y值等于sin θ：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">direction.y = <span class="built_in">sin</span>(glm::radians(pitch)); <span class="comment">// 注意我们先把角度转为弧度</span></span><br></pre></td></tr></table></figure>
+<p>这里我们只更新了y值，仔细观察x和z分量也被影响了.从三角形中我们可以看到它们的值等于：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">direction.x = <span class="built_in">cos</span>(glm::radians(pitch));</span><br><span class="line">direction.z = <span class="built_in">cos</span>(glm::radians(pitch));</span><br></pre></td></tr></table></figure>
+<p>看看我们是否能够为<strong>偏航角</strong>找到需要的分量：<br><img src="https://img-blog.csdnimg.cn/20190922185616157.png" alt="在这里插入图片描述"><br>就像俯仰角的三角形一样，我们可以看到x分量取决于cos(yaw)的值，z值同样取决于偏航角的正弦值.把这个加到前面的值中，会得到基于俯仰角和偏航角的方向向量：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">direction.x = <span class="built_in">cos</span>(glm::radians(pitch)) * <span class="built_in">cos</span>(glm::radians(yaw)); <span class="comment">// 译注：direction代表摄像机的前轴(Front)，这个前轴是和本文第一幅图片的第二个摄像机的方向向量是相反的</span></span><br><span class="line">direction.y = <span class="built_in">sin</span>(glm::radians(pitch));</span><br><span class="line">direction.z = <span class="built_in">cos</span>(glm::radians(pitch)) * <span class="built_in">sin</span>(glm::radians(yaw));</span><br></pre></td></tr></table></figure>
+<p>这样我们就有了一个可以把俯仰角和偏航角转化为用来自由旋转视角的摄像机的3维方向向量了.你可能会奇怪：我们怎么得到俯仰角和偏航角？</p>
+<h3 id="鼠标输入"><a href="#鼠标输入" class="headerlink" title="鼠标输入"></a>鼠标输入</h3><p>偏航角和俯仰角是通过鼠标（或手柄）移动获得的，水平的移动影响偏航角，竖直的移动影响俯仰角.它的原理就是，储存上一帧鼠标的位置，在当前帧中我们当前计算鼠标位置与上一帧的位置相差多少.如果水平/竖直差别越大那么俯仰角或偏航角就改变越大，也就是摄像机需要移动更多的距离.</p>
+<p>首先我们要告诉GLFW，它应该隐藏光标，并捕捉(Capture)它.捕捉光标表示的是，如果焦点在你的程序上（译注：即表示你正在操作这个程序，Windows中拥有焦点的程序标题栏通常是有颜色的那个，而失去焦点的程序标题栏则是灰色的），光标应该停留在窗口中（除非程序失去焦点或者退出）.我们可以用一个简单地配置调用来完成：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);</span><br></pre></td></tr></table></figure>
+<p>为了计算俯仰角和偏航角，我们需要让GLFW监听鼠标移动事件.（和键盘输入相似）我们会用一个回调函数来完成，函数的原型如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mouse_callback</span><span class="params">(GLFWwindow* window, <span class="keyword">double</span> xpos, <span class="keyword">double</span> ypos)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这里的xpos和ypos代表当前鼠标的位置.当我们用GLFW注册了回调函数之后，鼠标一移动mouse_callback函数就会被调用：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glfwSetCursorPosCallback(window, mouse_callback);</span><br></pre></td></tr></table></figure>
+<p>在处理FPS风格摄像机的鼠标输入的时候，我们必须在最终获取方向向量之前做下面这几步：</p>
+<ol>
+<li>计算鼠标距上一帧的偏移量</li>
+<li>把偏移量添加到摄像机的俯仰角和偏航角中</li>
+<li>对偏航角和俯仰角进行最大和最小值的限制</li>
+<li>计算方向向量</li>
+</ol>
+<p>第一步是计算鼠标自上一帧的偏移量.我们必须先在程序中储存上一帧的鼠标位置，我们把它的初始值设置为屏幕的中心（屏幕的尺寸是800x600）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> lastX = <span class="number">400</span>, lastY = <span class="number">300</span>;</span><br></pre></td></tr></table></figure>
+<p>然后在鼠标的回调函数中我们计算当前帧和上一帧鼠标位置的偏移量：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">float</span> xoffset = xpos - lastX;</span><br><span class="line"><span class="keyword">float</span> yoffset = lastY - ypos; <span class="comment">// 注意这里是相反的，因为y坐标是从底部往顶部依次增大的</span></span><br><span class="line">lastX = xpos;</span><br><span class="line">lastY = ypos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">float</span> sensitivity = <span class="number">0.05f</span>;</span><br><span class="line">xoffset *= sensitivity;</span><br><span class="line">yoffset *= sensitivity;</span><br></pre></td></tr></table></figure>
+<p>注意我们把偏移量乘以了sensitivity（灵敏度）值.如果我们忽略这个值，鼠标移动就会太大了；你可以自己实验一下，找到适合自己的灵敏度值.</p>
+<p>接下来我们把偏移量加到全局变量pitch和yaw上：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">yaw   += xoffset;</span><br><span class="line">pitch += yoffset;</span><br></pre></td></tr></table></figure>
+<p>第三步，我们需要给摄像机添加一些限制，这样摄像机就不会发生奇怪的移动了（这样也会避免一些奇怪的问题）.对于俯仰角，要让用户不能看向高于89度的地方（在90度时视角会发生逆转，所以我们把89度作为极限），同样也不允许小于-89度.这样能够保证用户只能看到天空或脚下，但是不能超越这个限制.我们可以在值超过限制的时候将其改为极限值来实现：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(pitch &gt; <span class="number">89.0f</span>)</span><br><span class="line">  pitch =  <span class="number">89.0f</span>;</span><br><span class="line"><span class="keyword">if</span>(pitch &lt; <span class="number">-89.0f</span>)</span><br><span class="line">  pitch = <span class="number">-89.0f</span>;</span><br></pre></td></tr></table></figure>
+<p>第四也是最后一步，就是通过俯仰角和偏航角来计算以得到真正的方向向量：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glm::vec3 front;</span><br><span class="line">front.x = <span class="built_in">cos</span>(glm::radians(pitch)) * <span class="built_in">cos</span>(glm::radians(yaw));</span><br><span class="line">front.y = <span class="built_in">sin</span>(glm::radians(pitch));</span><br><span class="line">front.z = <span class="built_in">cos</span>(glm::radians(pitch)) * <span class="built_in">sin</span>(glm::radians(yaw));</span><br><span class="line">cameraFront = glm::normalize(front);</span><br></pre></td></tr></table></figure>
+<p>计算出来的方向向量就会包含根据鼠标移动计算出来的所有旋转了.由于cameraFront向量已经包含在GLM的lookAt函数中，我们这就没什么问题了.</p>
+<p>如果你现在运行代码，你会发现在窗口第一次获取焦点的时候摄像机会突然跳一下。这个问题产生的原因是，在你的鼠标移动进窗口的那一刻，鼠标回调函数就会被调用，这时候的xpos和ypos会等于鼠标刚刚进入屏幕的那个位置.这通常是一个距离屏幕中心很远的地方，因而产生一个很大的偏移量，所以就会跳了.我们可以简单的使用一个bool变量检验我们是否是第一次获取鼠标输入，如果是，那么我们先把鼠标的初始位置更新为xpos和ypos值，这样就能解决这个问题；接下来的鼠标移动就会使用刚进入的鼠标位置坐标来计算偏移量了：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(firstMouse) <span class="comment">// 这个bool变量初始时是设定为true的</span></span><br><span class="line">&#123;</span><br><span class="line">    lastX = xpos;</span><br><span class="line">    lastY = ypos;</span><br><span class="line">    firstMouse = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>注册滚轮回调函数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">scroll_callback</span><span class="params">(GLFWwindow* window, <span class="keyword">double</span> xoffset, <span class="keyword">double</span> yoffset)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(fov &gt;= <span class="number">1.0f</span> &amp;&amp; fov &lt;= <span class="number">45.0f</span>)</span><br><span class="line">    fov -= yoffset;</span><br><span class="line">  <span class="keyword">if</span>(fov &lt;= <span class="number">1.0f</span>)</span><br><span class="line">    fov = <span class="number">1.0f</span>;</span><br><span class="line">  <span class="keyword">if</span>(fov &gt;= <span class="number">45.0f</span>)</span><br><span class="line">    fov = <span class="number">45.0f</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当滚动鼠标滚轮的时候，yoffset值代表我们竖直滚动的大小.当scroll_callback函数被调用后，我们改变全局变量fov变量的内容.因为45.0f是默认的视野值，我们将会把缩放级别(Zoom Level)限制在1.0f到45.0f.</p>
+<p>我们现在在每一帧都必须把透视投影矩阵上传到GPU，但现在使用fov变量作为它的视野：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">projection = glm::perspective(glm::radians(fov), <span class="number">800.0f</span> / <span class="number">600.0f</span>, <span class="number">0.1f</span>, <span class="number">100.0f</span>);</span><br></pre></td></tr></table></figure>
+<p>最后不要忘记注册鼠标滚轮的回调函数：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">glfwSetScrollCallback(window, scroll_callback);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，使用欧拉角的摄像机系统并不完美.根据你的视角限制或者是配置，你仍然可能引入<strong>万向节死锁</strong>问题.最好的摄像机系统是使用<strong>四元数</strong>(Quaternions)的，但我们将会把这个留到后面讨论.（译注：这里可以查看四元数摄像机的实现）</p>
+</blockquote>
+<h3 id="摄像机类"><a href="#摄像机类" class="headerlink" title="摄像机类"></a>摄像机类</h3><p>和着色器对象一样，我们把摄像机类写在一个单独的头文件中.你可以在<a href="https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/camera.h" target="_blank" rel="noopener">这里</a>找到它，你现在应该能够理解所有的代码了.我们建议您至少看一看这个类，看看如何创建一个自己的摄像机类.</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/10/07/LearnOpenGL-光照/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                LearnOpenGL-光照</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/10/07/记录一下平常遇到的环境配置问题/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                记录一下平常遇到的环境配置问题</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz",
+        appKey: "CVFjJULlnSe9RxKSEngIk5aR",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="www.shiroha.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg" itemprop="image" alt="Shiroha" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="www.shiroha.cn" itemprop="url" rel="author">Shiroha</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Shiroha</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Shiroha<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Shirohaの小矛屋</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/hagase" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/5641766727/profile" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/悦读/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/图集/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer"
+
+    data-id="311465842"
+
+    data-server="netease"
+
+    data-type="playlist"
+
+    data-fixed="true"
+
+    data-autoplay="false"
+
+    data-loop="all"
+
+    data-order="random"
+
+    data-preload="auto"
+
+    data-volume="0.7"
+
+    data-mutex="true"
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

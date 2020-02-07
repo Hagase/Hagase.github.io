@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">零次学习入门 | Shiroha</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "Shirohaの小矛屋";
+  mashiro_option.author_name = "小矛屋";
+  mashiro_option.site_url = "www.shiroha.cn";
+  mashiro_option.v_appId = "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz";
+  mashiro_option.v_appKey = "CVFjJULlnSe9RxKSEngIk5aR";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/3.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/4.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/5.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/6.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/7.png,https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/8.png".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+</head>
+</html>
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop ">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="www.shiroha.cn">
+          <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>这里是Shirohaの小矛屋，B站UP主矛盾钢琴师。</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/hagase" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/5641766727/profile" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=82156482" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/mao-dun-gang-qin-shi-58/activities" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="http://weibo.com/mashirozx?is_all=1" target="_blank" class="social-github" title="email">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/email.svg">
+                  </a>
+                </li>
+              
+            
+              
+                <li class="wechat">
+                  <a href="/#">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/social/wechat.png">
+                  </a>
+                  <div class="wechatInner">
+                    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/wechat.jpg">
+                  </div>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">Shirohaの</span>
+            <span class="shironeko">小矛屋</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/技术/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/生活/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/随想/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/转载/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/悦读/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/图集/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png);" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/1.png">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      零次学习入门</h1>
+      <p class="entry-census">
+        <span>
+          <a href="www.shiroha.cn">
+            <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="www.shiroha.cn">Shiroha</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2019-9-18<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p><a href="https://zhuanlan.zhihu.com/p/34656727" target="_blank" rel="noopener">原文链接</a></p>
+<div class="RichText ztext Post-RichText"><p>很久没有更文章了，主要是没有找到zero-shot learning(ZSL)方面我特别想要分享的文章，且中间有一段时间在考虑要不要继续做这个题目，再加上我懒 (￢_￢)，所以一直拖到了现在。</p><p>最近科研没什么进展，就想着写一个ZSL的入门性的文章，目的是为了帮助完全没有接触过这方面，并有些兴趣的同学，能在较短的时间对ZSL有一定的认识，并且对目前的发展情况有一定的把握。</p><p>在此之前，需要提到的是：<b>无论是论文笔记，还是总结性的读物，都包含了作者自己的理解和二次加工，想要做出好的工作必定需要自己看论文和总结。</b></p><h2>零次学习（zero-shot learning）基本概念</h2><p>每次在实验室做工作汇报的时候，总会把ZSL的基本概念讲一遍，但是每次的效果都不是很好，工作都讲完了，提的第一个问题依然是：ZSL到底是什么？这让我一度认为我的表达能力有问题。。。。。。不过回忆起我第一次接触这个题目的时候，也花了挺长的时间才搞清楚到底在做一件什么事情，那篇入门的文章[1]看了很久才基本看懂。因此，我尽量用最简单的，不带任何公式的方式来讲一下这到底是个什么问题。</p><p>假设小暗（纯粹因为不想用小明）和爸爸，到了动物园，看到了马，然后爸爸告诉他，这就是马；之后，又看到了老虎，告诉他：“看，这种身上有条纹的动物就是老虎。”；最后，又带他去看了熊猫，对他说：“你看这熊猫是黑白色的。”然后，爸爸给小暗安排了一个任务，让他在动物园里找一种他从没见过的动物，叫斑马，并告诉了小暗有关于斑马的信息：“斑马有着马的轮廓，身上有像老虎一样的条纹，而且它像熊猫一样是黑白色的。”最后，小暗根据爸爸的提示，在动物园里找到了斑马（意料之中的结局。。。）。</p><p>上述例子中包含了一个人类的推理过程，就是利用过去的知识（马，老虎，熊猫和斑马的描述），在脑海中推理出新对象的具体形态，从而能对新对象进行辨认。（如图1所示）ZSL就是希望能够模仿人类的这个推理过程，使得计算机具有识别新事物的能力。</p><figure data-size="normal"><noscript><img src="https://pic3.zhimg.com/v2-d8efa9870a3ce5ee028277ec57033036_b.jpg" data-size="normal" data-rawwidth="909" data-rawheight="502" class="origin_image zh-lightbox-thumb" width="909" data-original="https://pic3.zhimg.com/v2-d8efa9870a3ce5ee028277ec57033036_r.jpg"></noscript><img src="https://pic3.zhimg.com/80/v2-d8efa9870a3ce5ee028277ec57033036_hd.jpg" data-size="normal" data-rawwidth="909" data-rawheight="502" class="origin_image zh-lightbox-thumb lazy" width="909" data-original="https://pic3.zhimg.com/v2-d8efa9870a3ce5ee028277ec57033036_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-d8efa9870a3ce5ee028277ec57033036_b.jpg" data-lazy-status="ok"><figcaption>图1 ZSL概念图[17]</figcaption></figure><p>如今深度学习非常火热，使得纯监督学习在很多任务上都达到了让人惊叹的结果，但其限制是：往往需要足够多的样本才能训练出足够好的模型，并且利用猫狗训练出来的分类器，就只能对猫狗进行分类，其他的物种它都无法识别。这样的模型显然并不符合我们对人工智能的终极想象，我们希望机器能够像上文中的小暗一样，具有通过推理，识别新类别的能力。</p><p>ZSL就是希望我们的模型能够对其从没见过的类别进行分类，让机器具有推理能力，实现真正的智能。其中零次（Zero-shot）是指对于要分类的类别对象，一次也不学习。这样的能力听上去很具有吸引力，那么到底是怎么实现的呢？</p><p>假设我们的模型已经能够识别马，老虎和熊猫了，现在需要该模型也识别斑马，那么我们需要像爸爸一样告诉模型，怎样的对象才是斑马，但是并不能直接让模型看见斑马。所以模型需要知道的信息是马的样本、老虎的样本、熊猫的样本和样本的标签，以及关于前三种动物和斑马的描述。将其转换为常规的机器学习，这里我们只讨论一般的图片分类问题：</p><p>（1）训练集数据<img src="https://www.zhihu.com/equation?tex=X_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="X_{tr}"> 及其标签 <img src="https://www.zhihu.com/equation?tex=Y_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="Y_{tr}"> ，包含了模型需要学习的类别（马、老虎和熊猫），这里和传统的监督学习中的定义一致；</p><p>（2）测试集数据 <img src="https://www.zhihu.com/equation?tex=X_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="X_{te}"> 及其标签 <img src="https://www.zhihu.com/equation?tex=Y_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="Y_{te}"> ，包含了模型需要辨识的类别（斑马），这里和传统的监督学习中也定义一直；</p><p>（3）训练集类别的描述 <img src="https://www.zhihu.com/equation?tex=A_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="A_{tr}"> ，以及测试集类别的描述 <img src="https://www.zhihu.com/equation?tex=A_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="A_{te}"> ；我们将每一个类别 <img src="https://www.zhihu.com/equation?tex=y_%7Bi%7D%5Cin+Y" alt="[公式]" eeimg="1" data-formula="y_{i}\in Y"> ，都表示成一个语义向量 <img src="https://www.zhihu.com/equation?tex=a_%7Bi%7D%5Cin+A" alt="[公式]" eeimg="1" data-formula="a_{i}\in A"> 的形式，而这个语义向量的每一个维度都表示一种高级的属性，比如“黑白色”、“有尾巴”、“有羽毛”等等，当这个类别包含这种属性时，那在其维度上被设置为非零值。对于一个数据集来说，语义向量的维度是固定的，它包含了能够较充分描述数据集中类别的属性。</p><p>在ZSL中，我们希望利用 <img src="https://www.zhihu.com/equation?tex=X_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="X_{tr}"> 和 <img src="https://www.zhihu.com/equation?tex=Y_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="Y_{tr}"> 来训练模型，而模型能够具有识别 <img src="https://www.zhihu.com/equation?tex=X_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="X_{te}"> 的能力，因此模型需要知道所有类别的描述 <img src="https://www.zhihu.com/equation?tex=A_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="A_{tr}"> 和 <img src="https://www.zhihu.com/equation?tex=A_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="A_{te}"> 。ZSL这样的设置其实就是上文中小暗识别斑马的过程中，爸爸为他提供的条件。</p><figure data-size="normal"><noscript><img src="https://pic2.zhimg.com/v2-33a9764b792911eedce07dd4974e46f5_b.jpg" data-size="normal" data-rawwidth="894" data-rawheight="286" class="origin_image zh-lightbox-thumb" width="894" data-original="https://pic2.zhimg.com/v2-33a9764b792911eedce07dd4974e46f5_r.jpg"></noscript><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='894' height='286'></svg>" data-size="normal" data-rawwidth="894" data-rawheight="286" class="origin_image zh-lightbox-thumb lazy" width="894" data-original="https://pic2.zhimg.com/v2-33a9764b792911eedce07dd4974e46f5_r.jpg" data-actualsrc="https://pic2.zhimg.com/v2-33a9764b792911eedce07dd4974e46f5_b.jpg"><figcaption>图2 ZSL设置图[16]</figcaption></figure><p>如图2，可以较为直观地了解ZSL的设置。</p><p>讲到这，很多同学可能会问：</p><p>（1）类别的描述 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> 到底是怎么获取的？</p><p>答：有人工专家定义的，也有通过海量的附加数据集自动学习出来的，但前者的效果目前要好很多。</p><p>（2）这样做让人觉得有点失望呀！我希望模型能够在没有斑马样本的情况下，识别斑马，而现在，虽然我不需要为模型提供斑马的样本，但是却要为每一个类别添加一种描述，更离谱的是我还需要斑马（测试集）的描述，这个过程并没有想象中智能诶！</p><p>答：的确，在我们的想象中，我们期待的智能是：只给机器马、老虎和熊猫，然后它就可以识别斑马了，这样多爽，多神奇。但我们回过头去，再想想小暗的思考过程，如果爸爸不告诉小暗关于斑马的任何信息，那么当小暗看见斑马的时候，并不会知道它是什么，只是小暗能够描述它：“这是一匹有着黑白颜色条纹的马。”这里，有同学可能又会说：至少我们可以不用告诉小暗类别的描述呀，但是ZSL就不行。其实，我们是需要告诉小暗类别描述的，或者说小暗在之前就学习到了类别描述，比如怎样的图案是“条纹”，怎样的颜色称为“黑白色”，这样的属性定义。对于一个模型来说，它就像刚出生的婴儿，我们需要教会它这些属性的定义。</p><p>（3）就算是这样，需要实现定义这个描述 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> 还是很蛋疼的一件事情。</p><p>答：（1）中就有提到，描述 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> 可以自动学习，我们将小暗已经掌握的知识描述为一个知识库，这个知识库里就有对各种属性的定义；而能够模仿人类知识库的最好东西就是“百度百科”，“维基百科”等等各种百科，我们可以利用百科中的各种定义，生成类别的定义，这方面侧重于NLP，因此不进一步讨论。</p><p>在此，我们小小总结一下ZSL问题的定义。<b>利用训练集数据训练模型，使得模型能够对测试集的对象进行分类，但是训练集类别和测试集类别之间没有交集；期间需要借助类别的描述，来建立训练集和测试集之间的联系，从而使得模型有效</b>。</p><h2>目前的研究方式</h2><p>在上文中提到，要实现ZSL功能似乎需要解决两个部分的问题：第一个问题是获取合适的类别描述 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> ；第二个问题是建立一个合适的分类模型。</p><p>目前大部分工作都集中在第二个问题上，而第一个问题的研究进展比较缓慢。个人认为的原因是， 目前<img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> 的获取主要集中于一些NLP的方法，而且难度较大；而第二个问题能够用的方法较多，比较容易出成果。</p><p>因此，接下来的算法部分，也只介绍研究分类模型的方法。</p><h2>数据集介绍</h2><p>先介绍数据集，是因为希望在算法介绍部分，直接给出实例，让大家能够直接上手，这里顺便插个沐神 <span><span class="UserLink"><div class="Popover"><div id="Popover10-toggle" aria-haspopup="true" aria-expanded="false" aria-owns="Popover10-content"><a class="UserLink-link" data-za-detail-view-element_name="User" target="_blank" href="//www.zhihu.com/people/13fd0fce2affd948bfd821a8f7ed10f3">李沐</a></div></div></span></span> 的感悟。</p><blockquote>虽然在我认识的人里，好些人能够读一篇论文或者听一个报告后就能问出很好的问题，然后就基本弄懂了。但我在这个上笨很多。读过的论文就像喝过的水，第二天就不记得了。一定是需要静下心来，从头到尾实现一篇，跑上几个数据，调些参数，才能心安地觉得懂了。例如在港科大的两年读了很多论文，但现在反过来看，仍然记得可能就是那两个老老实实动手实现过写过论文的模型了。即使后来在机器学习这个方向又走了五年，学习任何新东西仍然是要靠动手。——李沐（MXNet开发者）</blockquote><p>（1）<b>Animal with Attributes（AwA）</b>官网：<a href="https://link.zhihu.com/?target=https%3A//cvml.ist.ac.at/AwA/" class=" wrap external" target="_blank" rel="nofollow noreferrer">Animals with Attributes</a></p><p>提出ZSL定义的作者，给出的数据集，都是动物的图片，包括50个类别的图片，其中40个类别作为训练集，10个类别作为测试集，每个类别的语义为85维，总共有30475张图片。但是目前由于版权问题，已经无法获取这个数据集的图片了，作者便提出了AwA2，与前者类似，总共37322张图片。</p><p>（2）<b>Caltech-UCSD-Birds-200-2011（CUB）</b>官网：<a href="https://link.zhihu.com/?target=http%3A//www.vision.caltech.edu/visipedia/CUB-200-2011.html" class=" wrap external" target="_blank" rel="nofollow noreferrer">Caltech-UCSD Birds-200-2011</a></p><p>全部都是鸟类的图片，总共200类，150类为训练集，50类为测试集，类别的语义为312维，有11788张图片。</p><p>（3）<b>Sun database（SUN）</b>官网：<a href="https://link.zhihu.com/?target=http%3A//groups.csail.mit.edu/vision/SUN/" class=" wrap external" target="_blank" rel="nofollow noreferrer">SUN Database</a></p><p>总共有717个类别，每个类别20张图片，类别语义为102维。传统的分法是训练集707类，测试集10类。</p><p>（4）<b>Attribute Pascal and Yahoo dataset（aPY）</b>官网：<a href="https://link.zhihu.com/?target=http%3A//vision.cs.uiuc.edu/attributes/" class=" wrap external" target="_blank" rel="nofollow noreferrer">Describing Objects by their Attributes</a></p><p>共有32个类，其中20个类作为训练集，12个类作为测试集，类别语义为64维，共有15339张图片。</p><p>（5）<b>ILSVRC2012/ILSVRC2010（ImNet-2）</b></p><p>利用ImageNet做成的数据集，由ILSVRC2012的1000个类作为训练集，ILSVRC2010的360个类作为测试集，有254000张图片。它由 4.6M 的Wikipedia数据集训练而得到，共1000维。</p><p>上述数据集中（1）-（4）都是较小型（small-scale）的数据集，（5）是大型（large-scale）数据集。虽然（1）-（4）已经提供了人工定义的类别语义，但是有些作者也会从维基语料库中自动提取出类别的语义表示，来检测自己的模型。</p><p>这里给大家提供一些已经用GoogleNet提取好的数据集图片特征，大家可以比较方便地使用。<a href="https://zhuanlan.zhihu.com/p/29807635" class="internal" target="_blank" rel="noopener">Zero-Shot Learing问题数据集分享（GoogleNet 提取）</a></p><h2>基础算法介绍</h2><p>在此，只具体介绍最简单的方法，让大家可以快速上手。我们面对的是一个图片分类问题，即对测试集的样本 <img src="https://www.zhihu.com/equation?tex=X_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="X_{te}"> 进行分类，而我们分类时需要借助类别的描述 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> ，由于每一个类别 <img src="https://www.zhihu.com/equation?tex=y_%7Bi%7D%5Cin+Y" alt="[公式]" eeimg="1" data-formula="y_{i}\in Y"> ，都对应一个语义向量 <img src="https://www.zhihu.com/equation?tex=a_%7Bi%7D%5Cin+A" alt="[公式]" eeimg="1" data-formula="a_{i}\in A"> ，因此我们现在可以忘掉 <img src="https://www.zhihu.com/equation?tex=Y" alt="[公式]" eeimg="1" data-formula="Y"> ，直接使用 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> 。我们把 <img src="https://www.zhihu.com/equation?tex=X" alt="[公式]" eeimg="1" data-formula="X"> （利用深度网络提取的图片特征，比如GoogleNet提取为1024维）称为特征空间（visual feature space），把类别的语义表示 <img src="https://www.zhihu.com/equation?tex=A" alt="[公式]" eeimg="1" data-formula="A"> ，称为语义空间。<b>我们要做的，其实就是建立特征空间与语义空间之间的映射</b>。</p><p>对于分类，我们能想到的最简单的形式就是岭回归（ridge regression），俗称均方误差加范数约束，具体形式为：</p><p><img src="https://www.zhihu.com/equation?tex=min%7C%7CX_%7Btr%7DW+-+A_%7Btr%7D%7C%7C%5E%7B2%7D%2B%5Ceta%5COmega%28W%29" alt="[公式]" eeimg="1" data-formula="min||X_{tr}W - A_{tr}||^{2}+\eta\Omega(W)">  (1)</p><p>其中， <img src="https://www.zhihu.com/equation?tex=%5COmega%28%29" alt="[公式]" eeimg="1" data-formula="\Omega()"> 通常为2范数约束， <img src="https://www.zhihu.com/equation?tex=%5Ceta" alt="[公式]" eeimg="1" data-formula="\eta"> 为超参，对 <img src="https://www.zhihu.com/equation?tex=W" alt="[公式]" eeimg="1" data-formula="W"> 求导，并让导为0，即可求出 <img src="https://www.zhihu.com/equation?tex=W" alt="[公式]" eeimg="1" data-formula="W"> 的值。测试时，利用 <img src="https://www.zhihu.com/equation?tex=W" alt="[公式]" eeimg="1" data-formula="W"> 将 <img src="https://www.zhihu.com/equation?tex=x_%7Bi%7D%5Cin+X_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="x_{i}\in X_{te}"> 投影到语义空间中，并在该空间中寻找到离它最近的 <img src="https://www.zhihu.com/equation?tex=a_%7Bi%7D%5Cin+A_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="a_{i}\in A_{te}"> ，则样本的类别为 <img src="https://www.zhihu.com/equation?tex=a_%7Bi%7D" alt="[公式]" eeimg="1" data-formula="a_{i}"> 所对应的标签 <img src="https://www.zhihu.com/equation?tex=y_%7Bi%7D%5Cin+Y_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="y_{i}\in Y_{tr}"> 。</p><p>简单写一个matlab实现。</p><div class="highlight"><pre><code class="language-matlab"><span class="n">regression_lambda</span> <span class="p">=</span> <span class="mf">1.0</span><span class="p">;</span><br><span class="n">W</span> <span class="p">=</span> <span class="n">ridge_regression</span><span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="n">train_set</span><span class="p">,</span> <span class="n">param</span><span class="p">.</span><span class="n">train_class_attributes</span><span class="p">,</span> <span class="n">regression_lambda</span> <span class="p">,</span> <span class="mi">1024</span><span class="p">);</span><br><span class="n">S_test</span> <span class="p">=</span> <span class="n">param</span><span class="p">.</span><span class="n">test_set</span> <span class="o"><em></em></span> <span class="n">W</span><span class="p">;</span><br><span class="p">[</span><span class="n">zsl_accuracy</span><span class="p">]=</span> <span class="n">zsl_el</span><span class="p">(</span><span class="n">S_test</span><span class="p">,</span> <span class="n">param</span><span class="p">.</span><span class="n">S_te</span><span class="p">,</span> <span class="n">param</span><span class="p">);</span><br><span class="n">fprintf</span><span class="p">(</span><span class="s">‘AwA ZSL accuracy on test set: %.1f%%\n’</span><span class="p">,</span> <span class="n">zsl_accuracy</span><span class="o"></span><span class="mi">100</span><span class="p">);</span></code></pre></div><p>我们使用AwA数据集，图片事先利用GoogleNet提取了特征（1024维），在测试集上可以得到59.1%的准确率。</p><p>这样一个岭回归之所以有效，是因为训练集类别语义 <img src="https://www.zhihu.com/equation?tex=A_%7Btr%7D" alt="[公式]" eeimg="1" data-formula="A_{tr}"> 与测试集类别语义 <img src="https://www.zhihu.com/equation?tex=A_%7Bte%7D" alt="[公式]" eeimg="1" data-formula="A_{te}"> 之间存在的密切联系。其实任何ZSL方法有效的基础，都是因为这两者之间具体的联系。</p><p>仅仅利用如此naive的方式，得到的结果显然不能满足我们的要求，那么建立更好的模型，则需要进一步了解ZSL问题中，存在着哪些和传统监督分类的差异。</p><h2>ZSL中存在的问题</h2><p>在此，介绍一些目前ZSL中主要存在的问题，以便让大家了解目前ZS领域有哪些研究点。</p><p><b>领域漂移问题（domain shift problem）</b></p><p>该问题的正式定义首先由[2]提出。简单来说，就是同一种属性，在不同的类别中，视觉特征的表现可能很大。如图3所示，斑马和猪都有尾巴，因此在它的类别语义表示中，“有尾巴”这一项都是非0值，但是两者尾巴的视觉特征却相差很远。如果斑马是训练集，而猪是测试集，那么利用斑马训练出来的模型，则很难正确地对猪进行分类。</p><figure data-size="normal"><noscript><img src="https://pic3.zhimg.com/v2-733de891fa7f478740b35228dad776c2_b.jpg" data-size="normal" data-rawwidth="451" data-rawheight="343" class="origin_image zh-lightbox-thumb" width="451" data-original="https://pic3.zhimg.com/v2-733de891fa7f478740b35228dad776c2_r.jpg"></noscript><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='451' height='343'></svg>" data-size="normal" data-rawwidth="451" data-rawheight="343" class="origin_image zh-lightbox-thumb lazy" width="451" data-original="https://pic3.zhimg.com/v2-733de891fa7f478740b35228dad776c2_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-733de891fa7f478740b35228dad776c2_b.jpg"><figcaption>图3 domain shift示意图，图中的prototype表示类别在语义空间中的位置[2]</figcaption></figure><p><b>枢纽点问题（Hubness problem）</b></p><p>这其实是高维空间中固有的问题：在高维空间中，某些点会成为大多数点的最近邻点。这听上去有些反直观，细节方面可以参考[3]。由于ZSL在计算最终的正确率时，使用的是K-NN，所以会受到hubness problem的影响，并且[4]中，证明了基于岭回归的方法会加重hubness problem问题。</p><p><b>语义间隔（semantic gap）</b></p><p>样本的特征往往是视觉特征，比如用深度网络提取到的特征，而语义表示却是非视觉的，这直接反应到数据上其实就是：样本在特征空间中所构成的流型与语义空间中类别构成的流型是不一致的。（如图4所示）</p><figure data-size="normal"><noscript><img src="https://pic3.zhimg.com/v2-869ec7e6e0f91229f8f66997ce59123a_b.jpg" data-size="normal" data-rawwidth="587" data-rawheight="295" class="origin_image zh-lightbox-thumb" width="587" data-original="https://pic3.zhimg.com/v2-869ec7e6e0f91229f8f66997ce59123a_r.jpg"></noscript><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='587' height='295'></svg>" data-size="normal" data-rawwidth="587" data-rawheight="295" class="origin_image zh-lightbox-thumb lazy" width="587" data-original="https://pic3.zhimg.com/v2-869ec7e6e0f91229f8f66997ce59123a_r.jpg" data-actualsrc="https://pic3.zhimg.com/v2-869ec7e6e0f91229f8f66997ce59123a_b.jpg"><figcaption>图4 流型不一致示意图[8]</figcaption></figure><p>这使得直接学习两者之间的映射变得困难。</p><p>还有其他的，比如semantic loss[5]问题，样本通过映射坍塌到一点[6]等，由于还不常研究，在此就不再讨论。</p><p>在此，我们给出解决上述三个问题的基本方法，从而更加深度地了解这三个问题。</p><p>（1）领域漂移</p><p>由于样本的特征维度往往比语义的维度大，所以建立从 <img src="https://www.zhihu.com/equation?tex=X" alt="[公式]" eeimg="1" data-formula="X"> 到 <img src="https://www.zhihu.com/equation?tex=S" alt="[公式]" eeimg="1" data-formula="S"> 的映射往往会丢失信息，为了保留更多的信息，保持更多的丰富性，最流行的做法是将映射到语义空间中的样本，再重建回去，这样学习到的映射就能够得到保留更多的信息。因此，在原来简单岭回归[1]的基础上，可以将目标函数改为：[7]</p><p><img src="https://www.zhihu.com/equation?tex=min%7C%7CX_%7Btr%7D+-+W%5E%7BT%7DA_%7Btr%7D%7C%7C%5E%7B2%7D%2B%5Clambda+%7C%7CWX_%7Btr%7D+-+A_%7Btr%7D%7C%7C%5E%7B2%7D" alt="[公式]" eeimg="1" data-formula="min||X_{tr} - W^{T}A_{tr}||^{2}+\lambda ||WX_{tr} - A_{tr}||^{2}"> (2)</p><p>从目标函数可以看出，这其实完成的是一个简易的自编码器过程，我们简称这个算法为SAE，利用matlab可以轻松对其实现。</p><div class="highlight"><pre><code class="language-matlab"><span class="n">lambda1</span> <span class="p">=</span> <span class="mi">800000</span><span class="p">;</span><br><span class="n">W</span> <span class="p">=</span> <span class="n">SAE</span><span class="p">(</span><span class="n">param</span><span class="p">.</span><span class="n">train_set</span><span class="s">‘, param.train_class_attributes’</span><span class="p">,</span> <span class="n">lambda1</span><span class="p">);</span><br><span class="n">S_test</span> <span class="p">=</span> <span class="n">param</span><span class="p">.</span><span class="n">test_set</span> <span class="o"><em></em></span> <span class="n">NormalizeFea</span><span class="p">(</span><span class="n">W</span><span class="s">‘);<br></span><span class="s">[zsl_accuracy]= zsl_el(S_test, param.S_te, param);<br></span><span class="s">fprintf(‘</span><span class="n">AwA</span> <span class="n">ZSL</span> <span class="n">accuracy</span> <span class="n">on</span> <span class="n">test</span> <span class="n">set</span><span class="p">:</span> <span class="c">%.1f%%\n’, zsl_accuracy100);</span></code></pre></div><p>依然是在AwA上进行测试，可以得到83.2%的准确率，比简单的岭回归(1)提高了24.1%。自编码器的这个结构目前在ZSL方法中非常流行，稍后我们还会提到。</p><p>（2）枢纽点问题</p><p>目前对于枢纽点问题的解决主要有两种方法：</p><p>a. 如果模型建立的方式为岭回归，那么可以建立从语义空间到特征空间的映射，从而不加深hubness problem对结果的影响[4]，也就是说将目标函数（1）改为：</p><p><img src="https://www.zhihu.com/equation?tex=min%7C%7CX_%7Btr%7D+-+A_%7Btr%7DW%7C%7C%5E%7B2%7D%2B%5Ceta%5COmega%28W%29" alt="[公式]" eeimg="1" data-formula="min||X_{tr} - A_{tr}W||^{2}+\eta\Omega(W)"> (3)</p><p>在AwA数据集上，这种简单的改变能够得到76.5%的正确率，比原本提高了17.4%。</p><p>b.可以使用生成模型，比如自编码器、GAN等，生成测试集的样本，这样就变成了一个传统的监督分类问题，不存在K-NN的操作，所以不存在hubness problem的影响。</p><p>（3）语义间隔问题</p><p>语义间隔问题的本质是二者的流形结构不一致，因此，解决此问题的着手点就在于将两者的流形调整到一致，再学习两者之间的映射[8]。最简单的方法自然是将类别的语义表示调整到样本的流型上，即用类别语义表示的K近邻样本点，重新表示类别语义即可。</p><h2>有关ZSL的一些其他的概念</h2><p>这里将提到一些ZSL涉及到的其他概念。</p><p>（1）直推式学习（Transductive setting）</p><p>这里的直推式学习其实是指在训练模型的时候，我们可以拿到测试集的数据，只是不能拿到测试集的样本的标签，因此我们可以利用测试集数据，得到一些测试集类别的先验知识。这种设置在迁移学习中很常见。</p><figure data-size="normal"><noscript><img src="https://pic4.zhimg.com/v2-7a2f3465bcf020ccb2f0375d86fd4943_b.jpg" data-size="normal" data-rawwidth="600" data-rawheight="424" class="origin_image zh-lightbox-thumb" width="600" data-original="https://pic4.zhimg.com/v2-7a2f3465bcf020ccb2f0375d86fd4943_r.jpg"></noscript><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='424'></svg>" data-size="normal" data-rawwidth="600" data-rawheight="424" class="origin_image zh-lightbox-thumb lazy" width="600" data-original="https://pic4.zhimg.com/v2-7a2f3465bcf020ccb2f0375d86fd4943_r.jpg" data-actualsrc="https://pic4.zhimg.com/v2-7a2f3465bcf020ccb2f0375d86fd4943_b.jpg"><figcaption>图5 非直推式（inductive）和直推式学习的区别[16]</figcaption></figure><p>（2）泛化的ZSL（generalized ZSL）</p><p>上文中提到的ZSL，在测试时使用K-NN进行正确率的评估时，只在测试类别中找最近邻的类别，但是在现实的问题中，拿到的样本也可能属于训练集类别，因此在测试时，同时加入训练集类别。[9]现在的很多方法都开始测试模型在这种设置下的能力。</p><h2>推荐阅读的论文</h2><p>我一直不想写ZSL的发展史，因为据我的经验，写了一大段发展史之后，往往大家的兴致不高，而且看完之后一般都不会有什么特别的感觉，基本也记不得什么东西。所以倒不如给大家推荐一些论文，从最早的到目前最新的，使得大家在短时间内能对ZSL的发展有一个大概的概念。</p><p>（1）Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer[1]</p><p>ZSL问题的开创性文章，当然是必读的喽，而且可以顺便看看别人是如何阐述一个新问题（挖坑）的。</p><p>（2）An embarrassingly simple approach to zero-shot learning[10]</p><p>有着很强的理论基础，算法简单、有效，虽然已经过去很多年了，但还是目前新工作需要进行对比的方法之一。</p><p>（3）Transductive Multi-View Zero-Shot Learning[2]</p><p>第一次定义了domain shift问题。</p><p>（4）Zero-shot recognition using dual visualsemantic mapping paths[11]</p><p>解决semantic gap问题的简单做法。</p><p>（5）Predicting visual exemplars of unseen classes for zero-shot learning[12]</p><p>从本质的角度出发，将ZSL问题，看作聚类问题，用最简单的方法直接建立映射。</p><p>（6）Semantic Autoencoder for Zero-Shot Learning[7]</p><p>引入自编码器结构的第一篇文章，直接导致现在出现的新方法大都具有这种结构。</p><p>（7）Zero-Shot Learning - A Comprehensive Evaluation of the Good, the Bad and the Ugly[14]</p><p>综述性的文章，总结了17年底以前的方法，提出了新的评价标准，对当时领域发展比较混乱的地方做出了一些更标准的评估。</p><p>（8）Zero-Shot Learning via Class-Conditioned Deep Generative Models[6]</p><p>将[7]改造为深度模型，并加上一些其他的约束。</p><p>（9）Preserving Semantic Relations for Zero-Shot Learning[13]</p><p>在自编码器结构的基础上，显示地加入语义类别之间的关系约束。</p><p>（10）Recent Advances in Zero-shot Recognition[15]</p><p>综述性的文章，读起来很顺畅，可以看看别人是怎么写综述，中顶刊的。</p><p>以上几篇文章，是我认为较有代表性，比较值得读的工作。</p><h2>代码</h2><p>有很多工作，作者都是提供代码的，我自己也实现了一些工作，如果有时间我会将其整理在一起，方便大家使用。</p><h2>我自己的看法</h2><p>我当初做这个课题，纯粹是因为项目的需要，再加上当时并没有想清楚自己要做什么，所以就做着试试了。目前这个领域属于很好发论文的阶段，而且并不需要十分深刻的理解，就能发不错等级的文章，比较容易能够看到它的发展趋势及下一步大家扎堆的地方，很多时候是在拼速度，而不是拼想法。但好发论文，并不代表它发展迅速，在我看来，真正有贡献的工作少之又少，且其对本质的研究发展缓慢。并且，该问题离实际应用还太远，很可能并不属于这个时代。基于这些原因，之前有一段时间很不想再继续这个课题。。。</p><h2>总结</h2><p>稍微总结一下，其实我也不知道要总结什么，只是习惯了每篇文章最后都要写个总结。花了大概一天的时间，写了这篇ZSL入门文章。写它一方面是因为希望能够有一篇ZSL的入门性质的读物，为大家提供便利；另一方面就是近期科研不顺，总是怀疑自己不是读书的料，写写文章让自己心情好些。希望大家阅读之后，能够得到一定的帮助吧！</p><h2>其他</h2><p>文章仓促之下写的，没有经过什么构思，就是想到哪，写到哪。后面我应该还会修改，添加一些其他的内容，如果大家有什么问题，欢迎评论或者私信。</p><p>祝大家科研顺利！为人类理解这个世界做一点点贡献！</p><h2>参考文献</h2><p>[1]Learning To Detect Unseen Object Classes by Between-Class Attribute Transfer</p><p>[2]Transductive Multi-View Zero-Shot Learning.</p><p>[3]Hubness and Pollution: Delving into Class-Space Mapping for Zero-Shot Learning.</p><p>[4]Ridge Regression, Hubness, and Zero-Shot Learning.</p><p>[5]Zero-Shot Visual Recognition using Semantics-Preserving Adversarial Embedding Network.</p><p>[6]Zero-Shot Learning via Class-Conditioned Deep Generative Models.</p><p>[7]Semantic Autoencoder for Zero-Shot Learning.</p><p>[8]Zero-Shot Recognition using Dual Visual-Semantic Mapping Paths.</p><p>[9]An Empirical Study and Analysis of Generalized Zero-Shot Learning for Object Recognition in the Wild.</p><p>[10]An embarrassingly simple approach to zero-shot learning</p><p>[11]Zero-shot recognition using dual visualsemantic mapping paths</p><p>[12]Predicting visual exemplars of unseen classes for zero-shot learning</p><p>[13]Preserving Semantic Relations for Zero-Shot Learning</p><p>[14]Zero-Shot Learning - A Comprehensive Evaluation of the Good, the Bad and the Ugly</p><p>[15]Recent Advances in Zero-shot Recognition</p><p>[16]<a href="https://link.zhihu.com/?target=http%3A//people.duke.edu/~ww107/material/ZSL.pdf" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">people.duke.edu/~ww107/</span><span class="invisible">material/ZSL.pdf</span><span class="ellipsis"></span></a></p><p>[17]Attribute-Based Synthetic Network (ABS-Net): Learning More From Pseudo Feature Representation</p></div>
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2019/09/18/数据结构-邓俊辉/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                数据结构-邓俊辉</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2019/09/01/hexo部署到服务器/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/cover/2.png">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                hexo部署到服务器</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "wswNvhpWzQ3DPNl7W2e9u6TW-gzGzoHsz",
+        appKey: "CVFjJULlnSe9RxKSEngIk5aR",
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ..."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <a href="www.shiroha.cn" class="profile gravatar"><img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg" itemprop="image" alt="Shiroha" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="www.shiroha.cn" itemprop="url" rel="author">Shiroha</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>Shiroha</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Shiroha<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1","name":"summer.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/hagase/shiroha_cdn@1.1/img/custom/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">Shirohaの小矛屋</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/hagase" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/5641766727/profile" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/技术/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/生活/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/随想/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/转载/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/悦读/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/图集/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<div class="aplayer"
+
+    data-id="311465842"
+
+    data-server="netease"
+
+    data-type="playlist"
+
+    data-fixed="true"
+
+    data-autoplay="false"
+
+    data-loop="all"
+
+    data-order="random"
+
+    data-preload="auto"
+
+    data-volume="0.7"
+
+    data-mutex="true"
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>
