@@ -1,4 +1,4 @@
-// ==UserScript==
+﻿// ==UserScript==
 // @name        bilibili ASS Danmaku Downloader
 // @namespace   https://github.com/tiansh
 // @description 以 ASS 格式下载 bilibili 的弹幕
@@ -183,18 +183,18 @@ var initFont = (function () {
 var generateASS = function (danmaku, info) {
   var assHeader = fillStr(funStr(function () {/*! ASS弹幕文件文件头
 [Script Info]
-Title: 
-Original Script: 根据  的弹幕信息，由 https://github.com/tiansh/us-danmaku 生成
+Title: {{title}}
+Original Script: 根据 {{ori}} 的弹幕信息，由 https://github.com/tiansh/us-danmaku 生成
 ScriptType: v4.00+
 Collisions: Normal
-PlayResX: 
-PlayResY: 
+PlayResX: {{playResX}}
+PlayResY: {{playResY}}
 Timer: 10.0000
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Fix,,25,&HFFFFFF,&HFFFFFF,&H000000,&H000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0
-Style: R2L,,25,&HFFFFFF,&HFFFFFF,&H000000,&H000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0
+Style: Fix,{{font}},25,&H{{alpha}}FFFFFF,&H{{alpha}}FFFFFF,&H{{alpha}}000000,&H{{alpha}}000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0
+Style: R2L,{{font}},25,&H{{alpha}}FFFFFF,&H{{alpha}}FFFFFF,&H{{alpha}}000000,&H{{alpha}}000000,1,0,0,0,100,100,0,0,1,2,0,2,20,20,2,0
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -339,7 +339,23 @@ var normalDanmaku = (function (wc, hc, b, u, maxr) {
         // 这些块的左边缘总是这个区域里面最大的边缘
         used.forEach(function (j) {
           if (j.p >= m) return;
-          if (j.m <= p) return; if (j.b && b) tas="Math.max(tas," j.tf); tal="Math.max(tal," j.td); }); 最后作为一种备选留下来 suggestion.push({ 'p': p, 'r': math.max(tas - t0s, t0l), 根据高度排序 suggestion.sort(function (x, y) { return x.p y.p; var mr="maxr;" 又靠右又靠下的选择可以忽略，剩下的返回 suggestion="suggestion.filter(function" (i) (i.r>= mr) return false;
+          if (j.m <= p) return;
+          if (j.b && b) return;
+          tas = Math.max(tas, j.tf);
+          tal = Math.max(tal, j.td);
+        });
+        // 最后作为一种备选留下来
+        suggestion.push({
+          'p': p,
+          'r': Math.max(tas - t0s, tal - t0l),
+        });
+      });
+      // 根据高度排序
+      suggestion.sort(function (x, y) { return x.p - y.p; });
+      var mr = maxr;
+      // 又靠右又靠下的选择可以忽略，剩下的返回
+      suggestion = suggestion.filter(function (i) {
+        if (i.r >= mr) return false;
         mr = i.r;
         return true;
       });
@@ -393,7 +409,17 @@ var sideDanmaku = (function (hc, b, u, maxr) {
       var tas = t0s;
       used.forEach(function (j) {
         if (j.p >= m) return;
-        if (j.m <= p) return; if (j.b && b) tas="Math.max(tas," j.td); }); return { 'r': - t0s, 'p': p, 'm': m }; 顶部 var top="function" (hv, suggestion="[];" used.foreach(function (i) (i.m> hc) return;
+        if (j.m <= p) return;
+        if (j.b && b) return;
+        tas = Math.max(tas, j.td);
+      });
+      return { 'r': tas - t0s, 'p': p, 'm': m };
+    };
+    // 顶部
+    var top = function (hv, t0s, b) {
+      var suggestion = [];
+      used.forEach(function (i) {
+        if (i.m > hc) return;
         suggestion.push(fr(i.m, i.m + hv, t0s, b));
       });
       return suggestion;
@@ -485,7 +511,7 @@ var setPosition = function (danmaku) {
 var fetchXML = function (cid, callback) {
   GM_xmlhttpRequest({
     'method': 'GET',
-    'url': 'http://comment.bilibili.com/.xml'.replace('', cid),
+    'url': 'http://comment.bilibili.com/{{cid}}.xml'.replace('{{cid}}', cid),
     'onload': function (resp) {
       var content = resp.responseText.replace(/(?:[\0-\x08\x0B\f\x0E-\x1F\uFFFE\uFFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g, "");
       callback(content);
@@ -539,7 +565,7 @@ var getCid = function (callback) {
     'method': 'GET',
     'url': 'http://interface.bilibili.com/player?' + src,
     'onload': function (resp) {
-      try { cid = Number(resp.responseText.match(/<chatid>(\d+)<\ chatid>/)[1]); }
+      try { cid = Number(resp.responseText.match(/<chatid>(\d+)<\/chatid>/)[1]); }
       catch (e) { }
       setTimeout(callback, 0, cid || undefined);
     },
@@ -618,4 +644,3 @@ var init = function () {
 
 if (document.body) init();
 else window.addEventListener('DOMContentLoaded', init);
-</\></chatid></=></=>

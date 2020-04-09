@@ -1,4 +1,4 @@
-var gotFile = function (name, content) {
+﻿var gotFile = function (name, content) {
   var danmaku = parseFile(content);
   var ass = generateASS(setPosition(danmaku), {
     'title': document.title,
