@@ -351,6 +351,28 @@
   </entry>
   
   <entry>
+    <title>如何感性地理解EM算法？</title>
+    <link href="/2019/08/20/%E5%A6%82%E4%BD%95%E6%84%9F%E6%80%A7%E5%9C%B0%E7%90%86%E8%A7%A3EM%E7%AE%97%E6%B3%95/"/>
+    <id>/2019/08/20/如何感性地理解EM算法/</id>
+    <published>2019-08-20T02:28:13.000Z</published>
+    <updated>2019-09-01T13:03:31.484Z</updated>
+    
+    <summary type="html">
+    
+      EM算法的感性理解
+    
+    </summary>
+    
+      <category term="转载" scheme="/categories/%E8%BD%AC%E8%BD%BD/"/>
+    
+    
+      <category term="数学" scheme="/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="机器学习" scheme="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Markdown语法示例</title>
     <link href="/2019/08/20/MarkDown%E8%AF%AD%E6%B3%95%E7%A4%BA%E4%BE%8B/"/>
     <id>/2019/08/20/MarkDown语法示例/</id>
@@ -391,28 +413,6 @@
       <category term="Django" scheme="/tags/Django/"/>
     
       <category term="技术" scheme="/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何感性地理解EM算法？</title>
-    <link href="/2019/08/20/%E5%A6%82%E4%BD%95%E6%84%9F%E6%80%A7%E5%9C%B0%E7%90%86%E8%A7%A3EM%E7%AE%97%E6%B3%95/"/>
-    <id>/2019/08/20/如何感性地理解EM算法/</id>
-    <published>2019-08-20T02:28:13.000Z</published>
-    <updated>2019-09-01T13:03:31.484Z</updated>
-    
-    <summary type="html">
-    
-      EM算法的感性理解
-    
-    </summary>
-    
-      <category term="转载" scheme="/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    
-      <category term="数学" scheme="/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="机器学习" scheme="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
