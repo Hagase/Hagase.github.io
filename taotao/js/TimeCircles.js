@@ -426,7 +426,7 @@
         var _this = this;
         var step = 0.2 * ((from === 1) ? -1 : 1);
         var i;
-        for (i = 0; from <= 1 && from>= 0; i++) {
+        for (i = 0; from <= 1 && from >= 0; i++) {
             (function() {
                 var delay = 50 * i;
                 var rgba = "rgba(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ", " + (Math.round(from * 10) / 10) + ")";
@@ -680,4 +680,3 @@
     }
     ;
 }(jQuery));
-</=></h4></span></div></div>
