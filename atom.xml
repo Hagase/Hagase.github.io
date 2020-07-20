@@ -187,15 +187,15 @@
   </entry>
   
   <entry>
-    <title>拉格朗日乘数法</title>
-    <link href="/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/"/>
-    <id>/2019/08/28/拉格朗日乘数法/</id>
+    <title>朴素贝叶斯为何“朴素”？</title>
+    <link href="/2019/08/28/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%B8%BA%E4%BD%95_%E6%9C%B4%E7%B4%A0__/"/>
+    <id>/2019/08/28/朴素贝叶斯为何_朴素__/</id>
     <published>2019-08-28T07:36:47.000Z</published>
-    <updated>2019-09-01T13:15:40.167Z</updated>
+    <updated>2019-09-01T13:14:24.072Z</updated>
     
     <summary type="html">
     
-      拉格朗日乘数法例子
+      朴素贝叶斯为何“朴素”？
     
     </summary>
     
@@ -209,15 +209,15 @@
   </entry>
   
   <entry>
-    <title>朴素贝叶斯为何“朴素”？</title>
-    <link href="/2019/08/28/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%B8%BA%E4%BD%95_%E6%9C%B4%E7%B4%A0__/"/>
-    <id>/2019/08/28/朴素贝叶斯为何_朴素__/</id>
+    <title>拉格朗日乘数法</title>
+    <link href="/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E6%95%B0%E6%B3%95/"/>
+    <id>/2019/08/28/拉格朗日乘数法/</id>
     <published>2019-08-28T07:36:47.000Z</published>
-    <updated>2019-09-01T13:14:24.072Z</updated>
+    <updated>2019-09-01T13:15:40.167Z</updated>
     
     <summary type="html">
     
-      朴素贝叶斯为何“朴素”？
+      拉格朗日乘数法例子
     
     </summary>
     
@@ -373,28 +373,6 @@
   </entry>
   
   <entry>
-    <title>如何感性地理解EM算法？</title>
-    <link href="/2019/08/20/%E5%A6%82%E4%BD%95%E6%84%9F%E6%80%A7%E5%9C%B0%E7%90%86%E8%A7%A3EM%E7%AE%97%E6%B3%95/"/>
-    <id>/2019/08/20/如何感性地理解EM算法/</id>
-    <published>2019-08-20T02:28:13.000Z</published>
-    <updated>2019-09-01T13:03:31.484Z</updated>
-    
-    <summary type="html">
-    
-      EM算法的感性理解
-    
-    </summary>
-    
-      <category term="转载" scheme="/categories/%E8%BD%AC%E8%BD%BD/"/>
-    
-    
-      <category term="数学" scheme="/tags/%E6%95%B0%E5%AD%A6/"/>
-    
-      <category term="机器学习" scheme="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux的常用命令</title>
     <link href="/2019/08/20/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4(%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0)/"/>
     <id>/2019/08/20/linux常用命令(长期更新)/</id>
@@ -413,6 +391,28 @@
       <category term="Django" scheme="/tags/Django/"/>
     
       <category term="技术" scheme="/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何感性地理解EM算法？</title>
+    <link href="/2019/08/20/%E5%A6%82%E4%BD%95%E6%84%9F%E6%80%A7%E5%9C%B0%E7%90%86%E8%A7%A3EM%E7%AE%97%E6%B3%95/"/>
+    <id>/2019/08/20/如何感性地理解EM算法/</id>
+    <published>2019-08-20T02:28:13.000Z</published>
+    <updated>2019-09-01T13:03:31.484Z</updated>
+    
+    <summary type="html">
+    
+      EM算法的感性理解
+    
+    </summary>
+    
+      <category term="转载" scheme="/categories/%E8%BD%AC%E8%BD%BD/"/>
+    
+    
+      <category term="数学" scheme="/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="机器学习" scheme="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
